@@ -1,0 +1,32 @@
+name: Core Model Tests
+
+on:
+  push:
+    paths:
+      - 'core/model/**'
+      - 'tests/unit/core-model.test.mjs'
+      - 'scripts/test/run-core-model.mjs'
+      - 'package.json'
+      - '.github/workflows/core-model-tests.yml'
+  pull_request:
+    paths:
+      - 'core/model/**'
+      - 'tests/unit/core-model.test.mjs'
+      - 'scripts/test/run-core-model.mjs'
+      - 'package.json'
+      - '.github/workflows/core-model-tests.yml'
+
+jobs:
+  core-model:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Run Core Model tests
+        run: npm test
+      - name: Run standalone backup runner
+        run: node scripts/test/run-core-model.mjs
