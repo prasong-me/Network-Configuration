@@ -12,7 +12,7 @@
     "test:target-profile-registry": "node --test tests/unit/target-profile-registry.test.mjs",
     "test:direct": "node scripts/test/run-core-model.mjs",
     "test:validation:direct": "node scripts/test/run-validation.mjs",
-    "test:apple": "node --test tests/unit/apple-configuration-backend.test.mjs"
+    "test:apple": "node --test tests/unit/apple-configuration-backend.test.mjs tests/unit/apple-backend-server.test.mjs"
   },
   "engines": {
     "node": ">=20"
