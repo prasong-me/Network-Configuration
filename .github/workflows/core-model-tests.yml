@@ -8,6 +8,12 @@ on:
       - 'validators/**'
       - 'tests/unit/**'
       - 'scripts/test/**'
+      - 'apple/**'
+      - 'targets/apple/**'
+      - 'generators/mobileconfig/apple-*.mjs'
+      - 'apple/**'
+      - 'targets/apple/**'
+      - 'generators/mobileconfig/apple-*.mjs'
       - 'package.json'
       - '.github/workflows/core-model-tests.yml'
   pull_request:
