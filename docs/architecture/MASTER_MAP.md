@@ -426,8 +426,10 @@ Current state:
 - 26-item Test Matrix Source: **PENDING**
 - Schema / Contract Validation: **IMPLEMENTED**
 - Serializer Registry: **IMPLEMENTED**
+- Target Profile Contract Shape: **HOLD / PENDING NORMATIVE SOURCE**
+- Target Profile Registry Mechanism: **IMPLEMENTED**
 - Runtime validation: **NOT STARTED**
-- Target Profile / Capability Registry: **NEXT**
+- Target-specific Target Profile semantics: **NOT STARTED / BLOCKED BY MISSING NORMATIVE SOURCE**
 
 ### Core Model invariants implemented
 
@@ -493,3 +495,37 @@ The registry:
 The frozen Contract v2.1 remains the normative shape source. Duplicate handling, version-selection policy, and other registry policies are intentionally not inferred from the contract.
 
 The complete test gate now includes the Serializer Registry unit suite via `npm run test:registry`. GitHub Actions is configured to include `core/registry/**` and execute the expanded `npm test` gate. CI remains **CONFIGURED** until an actual GitHub Actions runner result is observed.
+
+
+### Phase F Gate Baseline — Target Profile Registry
+
+The Phase F boundary is explicitly split between an unresolved Contract Shape and an approved mechanism.
+
+**Target Profile Contract Shape: HOLD / PENDING NORMATIVE SOURCE**
+
+No Target Profile interface, schema, field set, capability semantics, matching rule, default target, duplicate policy, version-selection policy, or compatibility policy is declared from architecture inference alone.
+
+**Target Profile Registry Mechanism: APPROVED / BOUNDARY LOCKED**
+
+Implemented source:
+- `core/registry/target-profile-registry.mjs`
+- `tests/unit/target-profile-registry.test.mjs`
+
+The mechanism is intentionally schema-independent. It:
+- stores an opaque profile value under a caller-supplied `targetId` registry key;
+- supports lookup by that key;
+- supports presence checks and enumeration;
+- does not validate or infer Target Profile fields;
+- does not define matching or selection algorithms;
+- does not define default-target behavior;
+- does not define a normative duplicate policy;
+- does not execute adapters, generators, serializers, or artifact creation.
+
+The use of `targetId` here is a registry lookup key only. It must not be interpreted as establishing `targetId` as a Target Profile Contract field.
+
+Protected boundaries remain untouched:
+- Apple Adapter
+- DNS Runtime
+- PR #15
+
+CI remains evidence-driven: workflow configuration is not equivalent to a passed runner result.
