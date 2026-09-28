@@ -1,0 +1,15 @@
+{
+  "name": "network-configuration",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Network Configuration engineering core",
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/unit/core-model.test.mjs",
+    "test:core": "node --test tests/unit/core-model.test.mjs",
+    "test:direct": "node scripts/test/run-core-model.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
