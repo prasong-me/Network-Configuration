@@ -45,7 +45,7 @@ export function createAppleBackendServer() {
         return send(res, result.valid ? 200 : 422, result);
       }
 
-      const match = url.pathname.match(/^\\/compile\\/(mobileconfig|declarations|declarations-profile|mdm-command)$/);
+      const match = url.pathname.match(/^\/compile\/(mobileconfig|declarations|declarations-profile|mdm-command)$/);
       if (!match) return send(res, 404, { ok: false, error: 'not_found' });
 
       const result = compile(match[1], source, Number(url.searchParams.get('index') ?? 0));
