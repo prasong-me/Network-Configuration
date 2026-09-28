@@ -2,7 +2,7 @@
 
 > Architecture baseline for the Network-Configuration project.
 >
-> Status: **Architecture Baseline / Contract v2.1 reference**
+> Status: **Architecture Baseline / Contract v2.1 frozen**
 >
 > This document defines the system map and boundaries. It is not an implementation specification for any individual target adapter.
 
@@ -96,13 +96,13 @@ Network-Configuration/
 │   └── domains/
 │
 ├── targets/
-│   ├── ios/                 # Reserved; intentionally absent while Apple Adapter is protected
+│   ├── ios/                 # Reserved target-definition boundary; Apple Adapter remains protected
 │   ├── wireguard/
 │   ├── proxy/
 │   └── ...
 │
 ├── adapters/
-│   ├── ios/
+│   ├── ios/                 # Protected; intentionally not implemented
 │   ├── wireguard/
 │   ├── proxy/
 │   └── ...
@@ -301,23 +301,39 @@ Release artifacts must be traceable to the validation and test results that prod
 
 ## 11. Protected / Out-of-Scope Areas
 
-The initial implementation must preserve the previously established protection boundary:
+The implementation must preserve the established protection boundary:
 
-- **Apple Adapter** — do not modify during scaffolding/baseline documentation.
-- **DNS Runtime** — do not modify during scaffolding/baseline documentation.
-- **PR #15** — preserve as an existing protected work item/reference; do not alter or absorb its changes during this phase.
+- **Apple Adapter** — locked; no implementation added or modified.
+- **DNS Runtime** — locked; no runtime implementation added or modified.
+- **PR #15** — preserve as a protected work item/reference; do not alter or absorb its changes.
 
 If the current repository does not contain one of these items, its exact source-of-truth location must be verified before any related implementation change.
 
 ## 12. Contract Baseline
 
-The project currently treats **Contract v2.1** as the architectural baseline referenced by the project plan.
+**Contract v2.1 is now frozen as the authoritative export-boundary baseline.**
 
-Important distinction:
+Frozen source:
 
-- This document records the architectural dependency on that baseline.
-- It does **not** invent or redefine Contract v2.1 fields.
-- The authoritative Contract v2.1 specification must be linked or imported before implementation code is written against fields not yet present in the repository.
+`core/contracts/contract-v2.1.d.ts`
+
+Reconciliation record:
+
+`docs/architecture/CONTRACT_V2_1_RECONCILIATION.md`
+
+The contract was imported from the authoritative baseline supplied for this phase. No additional contract fields, enum values, output formats, or invariants were inferred from architecture documents.
+
+The frozen baseline contains:
+
+- `ContractVersion`
+- `ProcessingStatus`
+- `DiagnosticReport`
+- `CompileResult`
+- `OUTPUT_FORMATS` / `OutputFormat`
+- `SerializerRegistryEntry`
+- 3 explicitly declared core invariants
+
+A separate 26-item Test Matrix was referenced during handoff but was not included in the authoritative source supplied for this phase. It remains a test-source dependency and is not reconstructed by inference.
 
 ## 13. Change-Control Rules
 
@@ -378,30 +394,32 @@ The status of a component must never be inferred solely from memory.
 
 ## 16. Current Baseline State
 
-The repository has now passed the structural scaffolding phase. The directory structure is represented by structural placeholders where appropriate; this does **not** mean the corresponding implementation exists.
+The repository has passed the structural scaffolding and Contract v2.1 reconciliation phases.
 
 Current state:
 
 - Repository Scaffolding: **COMPLETE**
+- Structural Integrity Audit: **PASS**
 - Protected Boundary Check: **PASS**
-- Contract v2.1 Source-of-Truth: **PENDING**
-- Core Model implementation: **NOT STARTED**
+- Contract v2.1 Authoritative Source: **PROVIDED**
+- Contract v2.1 Field Reconciliation: **PASS**
+- Contract v2.1 Freeze / Import: **COMPLETE**
+- 26-item Test Matrix Source: **PENDING**
+- Core Model implementation: **NEXT / NOT STARTED**
 - Runtime validation: **NOT STARTED**
 
-The authoritative Contract v2.1 specification has not been located in the repository. Until that source is verified, no Contract v2.1 fields or invariants may be invented from this architecture document.
-
-The next controlled phase is therefore:
+Controlled transition:
 
 ```text
-Structural Integrity Audit
+Structural Integrity Audit       PASS
         ↓
-Contract v2.1 Source Reconciliation
+Contract v2.1 Reconciliation    PASS
         ↓
-Contract Freeze / Import
+Contract Freeze / Import        COMPLETE
         ↓
-Core Model
+Core Model                      NEXT
         ↓
 Schema / Contract Validation
 ```
 
-See `docs/architecture/STRUCTURAL_AUDIT.md` for the verified audit result.
+See `docs/architecture/STRUCTURAL_AUDIT.md` and `docs/architecture/CONTRACT_V2_1_RECONCILIATION.md` for the audit and reconciliation records.
