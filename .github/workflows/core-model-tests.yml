@@ -1,23 +1,25 @@
-name: Core Model Tests
+name: Core Model and Validation Tests
 
 on:
   push:
     paths:
       - 'core/model/**'
-      - 'tests/unit/core-model.test.mjs'
-      - 'scripts/test/run-core-model.mjs'
+      - 'validators/**'
+      - 'tests/unit/**'
+      - 'scripts/test/**'
       - 'package.json'
       - '.github/workflows/core-model-tests.yml'
   pull_request:
     paths:
       - 'core/model/**'
-      - 'tests/unit/core-model.test.mjs'
-      - 'scripts/test/run-core-model.mjs'
+      - 'validators/**'
+      - 'tests/unit/**'
+      - 'scripts/test/**'
       - 'package.json'
       - '.github/workflows/core-model-tests.yml'
 
 jobs:
-  core-model:
+  validation:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -26,7 +28,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-      - name: Run Core Model tests
+      - name: Run complete test gate
         run: npm test
-      - name: Run standalone backup runner
+      - name: Run Core Model backup runner
         run: node scripts/test/run-core-model.mjs
