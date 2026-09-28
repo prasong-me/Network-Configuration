@@ -532,7 +532,7 @@ CI remains evidence-driven: workflow configuration is not equivalent to a passed
 
 ## 17. Repository Housekeeping / Export Surface
 
-The Core registry implementations now expose a centralized public API without extending or modifying Contract v2.1 semantics.
+The Core registry implementations expose a centralized public API without extending or modifying Contract v2.1 semantics.
 
 ### Public export surfaces
 
@@ -544,24 +544,41 @@ The Core registry implementations now expose a centralized public API without ex
 
 These exports are composition-only. They do not introduce Contract v2.1 fields, enum values, invariants, duplicate policies, matching rules, or target-specific semantics.
 
-### Recent verified commit history
+### Verified repository evidence
 
-| Commit | SHA |
+| Item | Evidence |
 |---|---|
-| Phase F registry baseline documentation | `7102aa21d8490ff29a08f0d065ad1ac8ee7b35df` |
-| Phase F CI coverage | `569e7addf8eae1b2430d320bb3267c12e45949e3` |
-| Phase F complete test gate | `5c5c1a2cfd07213f2cb96ee8ff7a0bc40f2ea621` |
-| Target Profile Registry mechanism tests | `0764a651ac9fa532081684711adb6051b44740e9` |
-| Target Profile Registry mechanism | `59940769782333fffdce2448090d35e3aee8dd11` |
+| Contract baseline | `core/contracts/contract-v2.1.d.ts` — frozen |
+| Phase F mechanism baseline | `7102aa21d8490ff29a08f0d065ad1ac8ee7b35df` |
+| Registry barrel commit | `5fbf90bef148a53fc14770cc6cd8e1dacafff52a` |
+| Core public API commit | `dc2d7fba873d1806ac1b533a2b2c8b37ef56303b` |
+| Master Map synchronization commit | `89cbf33c5a8c838d98f75273b3aeeab257da4458` |
+| Latest CI head SHA | `5fbf90bef148a53fc14770cc6cd8e1dacafff52a` |
+| Latest CI | Run #12 — completed / success |
 
 ### CI verification
 
 - Workflow: **Core Model and Validation Tests**
-- Run: **#11**
-- Head SHA: `5c5c1a2cfd07213f2cb96ee8ff7a0bc40f2ea621`
-- Event: push to `main`
-- Status: **completed**
-- Conclusion: **success**
-- GitHub Actions run ID: `36382971184`
+- Run #12: **completed / success**
+- Head SHA: `5fbf90bef148a53fc14770cc6cd8e1dacafff52a`
+- GitHub Actions run ID: `36384567638`
 
-This Run #11 result is verified GitHub Actions evidence and supersedes the earlier documentation state that CI was only **CONFIGURED** pending a runner result.
+Run #11 remains historical evidence for the Phase F registry gate. Run #12 is the current post-housekeeping CI evidence.
+
+## 18. Current Gate State
+
+- Contract v2.1: **FROZEN**
+- Phase E Serializer Registry: **IMPLEMENTED / VERIFIED**
+- Phase F Registry Mechanism: **IMPLEMENTED / VERIFIED**
+- Phase F Contract Shape: **HOLD / PENDING NORMATIVE SOURCE**
+- Task 1 — Registry Barrel Export: **COMPLETE**
+- Task 1 Extension — Core Public API: **COMPLETE**
+- Task 3 — Master Map Synchronization: **COMPLETE**
+- Apple MobileConfig Adapter Layer: **LOCKED**
+- DNS Runtime Subsystem: **LOCKED**
+- PR #15 Integration Boundary: **LOCKED**
+- Phase G Target Adapter Layer: **LOCKED / BLOCKED BY PHASE F SHAPE**
+
+### Next Allowed Gate
+
+The next implementation gate is **Phase F-Shape / Target Profile Contract Shape**, but only after a normative source is supplied and reconciled. No Phase G adapter implementation is authorized before that gate passes.
