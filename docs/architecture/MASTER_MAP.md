@@ -529,3 +529,39 @@ Protected boundaries remain untouched:
 - PR #15
 
 CI remains evidence-driven: workflow configuration is not equivalent to a passed runner result.
+
+## 17. Repository Housekeeping / Export Surface
+
+The Core registry implementations now expose a centralized public API without extending or modifying Contract v2.1 semantics.
+
+### Public export surfaces
+
+- `core/registry/index.mjs` — registry barrel export index.
+- `core/index.mjs` — Core public entry point re-exporting the registry barrel.
+- Exported registry mechanisms:
+  - `SerializerRegistry`
+  - `TargetProfileRegistry`
+
+These exports are composition-only. They do not introduce Contract v2.1 fields, enum values, invariants, duplicate policies, matching rules, or target-specific semantics.
+
+### Recent verified commit history
+
+| Commit | SHA |
+|---|---|
+| Phase F registry baseline documentation | `7102aa21d8490ff29a08f0d065ad1ac8ee7b35df` |
+| Phase F CI coverage | `569e7addf8eae1b2430d320bb3267c12e45949e3` |
+| Phase F complete test gate | `5c5c1a2cfd07213f2cb96ee8ff7a0bc40f2ea621` |
+| Target Profile Registry mechanism tests | `0764a651ac9fa532081684711adb6051b44740e9` |
+| Target Profile Registry mechanism | `59940769782333fffdce2448090d35e3aee8dd11` |
+
+### CI verification
+
+- Workflow: **Core Model and Validation Tests**
+- Run: **#11**
+- Head SHA: `5c5c1a2cfd07213f2cb96ee8ff7a0bc40f2ea621`
+- Event: push to `main`
+- Status: **completed**
+- Conclusion: **success**
+- GitHub Actions run ID: `36382971184`
+
+This Run #11 result is verified GitHub Actions evidence and supersedes the earlier documentation state that CI was only **CONFIGURED** pending a runner result.
