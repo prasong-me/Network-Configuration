@@ -299,13 +299,15 @@ CODE / CONFIG
 
 Release artifacts must be traceable to the validation and test results that produced them.
 
-For the current Core Model, the repository now has three execution paths for the same invariant suite:
+For the current Core Model and Validation Layer, the repository has independent primary and backup execution paths:
 
-1. `npm test`
-2. `npm run test:core`
-3. `node scripts/test/run-core-model.mjs`
+1. `npm test` — complete Core + Validation gate
+2. `npm run test:core` — Core Model suite
+3. `npm run test:validation` — Schema / Contract Validation suite
+4. `npm run test:direct` — standalone Core backup runner
+5. `npm run test:validation:direct` — standalone Validation backup runner
 
-GitHub Actions also runs both the primary npm runner and the standalone backup runner. The 26-item Test Matrix remains a separate pending source and has not been inferred or reconstructed.
+GitHub Actions runs the complete gate plus the standalone Core backup runner. The 26-item Test Matrix remains a separate pending source and has not been inferred or reconstructed.
 
 ## 11. Protected / Out-of-Scope Areas
 
@@ -416,7 +418,11 @@ Current state:
 - Core Model CompileResult Builder: **IMPLEMENTED**
 - Core Model invariant tests: **IMPLEMENTED**
 - Primary + backup test runners: **IMPLEMENTED**
-- GitHub Actions Core Model test workflow: **IMPLEMENTED**
+- GitHub Actions Core Model and Validation test workflow: **IMPLEMENTED**
+- Schema / Contract Validation Layer: **IMPLEMENTED**
+- DiagnosticReport Factory: **IMPLEMENTED**
+- Input Schema Validator: **IMPLEMENTED**
+- Contract Validator tests: **IMPLEMENTED**
 - 26-item Test Matrix Source: **PENDING**
 - Schema / Contract Validation: **NEXT**
 - Runtime validation: **NOT STARTED**
@@ -456,7 +462,9 @@ Core Model                      IMPLEMENTED
         ↓
 Core Model Tests                IMPLEMENTED
         ↓
-Schema / Contract Validation    NEXT
+Schema / Contract Validation    IMPLEMENTED
+        ↓
+Serializer Registry              NEXT
 ```
 
 See `docs/architecture/STRUCTURAL_AUDIT.md` and `docs/architecture/CONTRACT_V2_1_RECONCILIATION.md` for the audit and reconciliation records.
