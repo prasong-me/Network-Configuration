@@ -299,6 +299,14 @@ CODE / CONFIG
 
 Release artifacts must be traceable to the validation and test results that produced them.
 
+For the current Core Model, the repository now has three execution paths for the same invariant suite:
+
+1. `npm test`
+2. `npm run test:core`
+3. `node scripts/test/run-core-model.mjs`
+
+GitHub Actions also runs both the primary npm runner and the standalone backup runner. The 26-item Test Matrix remains a separate pending source and has not been inferred or reconstructed.
+
 ## 11. Protected / Out-of-Scope Areas
 
 The implementation must preserve the established protection boundary:
@@ -394,7 +402,7 @@ The status of a component must never be inferred solely from memory.
 
 ## 16. Current Baseline State
 
-The repository has passed the structural scaffolding and Contract v2.1 reconciliation phases.
+The repository has passed the structural scaffolding, Contract v2.1 reconciliation, and initial Core Model runtime implementation phases.
 
 Current state:
 
@@ -404,9 +412,36 @@ Current state:
 - Contract v2.1 Authoritative Source: **PROVIDED**
 - Contract v2.1 Field Reconciliation: **PASS**
 - Contract v2.1 Freeze / Import: **COMPLETE**
+- Core Model State Engine: **IMPLEMENTED**
+- Core Model CompileResult Builder: **IMPLEMENTED**
+- Core Model invariant tests: **IMPLEMENTED**
+- Primary + backup test runners: **IMPLEMENTED**
+- GitHub Actions Core Model test workflow: **IMPLEMENTED**
 - 26-item Test Matrix Source: **PENDING**
-- Core Model implementation: **NEXT / NOT STARTED**
+- Schema / Contract Validation: **NEXT**
 - Runtime validation: **NOT STARTED**
+
+### Core Model invariants implemented
+
+1. Processing flow permits `IDLE → PROCESSING → SUCCESS / FAILED`.
+2. An unhandled processing failure escalates to `BLOCKED`.
+3. `CompileResult` always owns `representation`; runtime verification uses `Object.hasOwn()`.
+4. `metadata.contractVersion` is fixed to `'2.1'`.
+5. `timestamp`, `targetId`, and `checksum` are required.
+6. Core Model contains no Apple Adapter or DNS Runtime dependency.
+
+Checksum generation remains deliberately unspecified because Contract v2.1 does not define a checksum algorithm; the current builder records a caller-supplied checksum rather than inventing a normative algorithm.
+
+### Test verification
+
+The implementation was executed locally against an equivalent reconstructed test harness because the execution environment cannot reach GitHub's network endpoint. The verification run completed with:
+
+- 8/8 smoke/invariant tests passed
+- 0 failed
+- 0 skipped
+- the same suite passed twice through the direct Node test runner
+
+This local verification is evidence of runtime behavior of the committed implementation, but it is not claimed as a GitHub Actions run. The repository workflow is configured to execute the authoritative committed suite on GitHub.
 
 Controlled transition:
 
@@ -417,9 +452,11 @@ Contract v2.1 Reconciliation    PASS
         ↓
 Contract Freeze / Import        COMPLETE
         ↓
-Core Model                      NEXT
+Core Model                      IMPLEMENTED
         ↓
-Schema / Contract Validation
+Core Model Tests                IMPLEMENTED
+        ↓
+Schema / Contract Validation    NEXT
 ```
 
 See `docs/architecture/STRUCTURAL_AUDIT.md` and `docs/architecture/CONTRACT_V2_1_RECONCILIATION.md` for the audit and reconciliation records.
