@@ -424,8 +424,10 @@ Current state:
 - Input Schema Validator: **IMPLEMENTED**
 - Contract Validator tests: **IMPLEMENTED**
 - 26-item Test Matrix Source: **PENDING**
-- Schema / Contract Validation: **NEXT**
+- Schema / Contract Validation: **IMPLEMENTED**
+- Serializer Registry: **IMPLEMENTED**
 - Runtime validation: **NOT STARTED**
+- Target Profile / Capability Registry: **NEXT**
 
 ### Core Model invariants implemented
 
@@ -464,7 +466,30 @@ Core Model Tests                IMPLEMENTED
         ↓
 Schema / Contract Validation    IMPLEMENTED
         ↓
-Serializer Registry              NEXT
+Serializer Registry              IMPLEMENTED
+        ↓
+Target Profile / Capability Registry  NEXT
 ```
 
 See `docs/architecture/STRUCTURAL_AUDIT.md` and `docs/architecture/CONTRACT_V2_1_RECONCILIATION.md` for the audit and reconciliation records.
+
+
+### Serializer Registry Phase E
+
+The Serializer Registry is implemented as a pure mechanism layer.
+
+Implemented source:
+- `core/registry/serializer-registry.mjs`
+- `tests/unit/serializer-registry.test.mjs`
+
+The registry:
+- validates `SerializerRegistryEntry` through `validateSerializerEntry()` before registration;
+- stores metadata/reference entries only;
+- supports lookup by `serializerId`;
+- supports format lookup with an explicit `includeDeprecated` mechanism option;
+- exposes registration presence and current size;
+- does not execute generators, serializers, adapters, or artifact creation.
+
+The frozen Contract v2.1 remains the normative shape source. Duplicate handling, version-selection policy, and other registry policies are intentionally not inferred from the contract.
+
+The complete test gate now includes the Serializer Registry unit suite via `npm run test:registry`. GitHub Actions is configured to include `core/registry/**` and execute the expanded `npm test` gate. CI remains **CONFIGURED** until an actual GitHub Actions runner result is observed.
