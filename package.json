@@ -5,8 +5,9 @@
   "description": "Network Configuration engineering core",
   "type": "module",
   "scripts": {
-    "test": "node --test tests/unit/core-model.test.mjs",
+    "test": "npm run test:core && npm run test:validation",
     "test:core": "node --test tests/unit/core-model.test.mjs",
+    "test:validation": "node --test tests/unit/contract-validator.test.mjs",
     "test:direct": "node scripts/test/run-core-model.mjs"
   },
   "engines": {
