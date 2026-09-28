@@ -96,7 +96,7 @@ Network-Configuration/
 │   └── domains/
 │
 ├── targets/
-│   ├── ios/
+│   ├── ios/                 # Reserved; intentionally absent while Apple Adapter is protected
 │   ├── wireguard/
 │   ├── proxy/
 │   └── ...
@@ -378,18 +378,30 @@ The status of a component must never be inferred solely from memory.
 
 ## 16. Current Baseline State
 
-At the time this document was established, the repository contains a minimal README and does not yet contain the full directory tree defined above.
+The repository has now passed the structural scaffolding phase. The directory structure is represented by structural placeholders where appropriate; this does **not** mean the corresponding implementation exists.
 
-Therefore this document is the **architecture map**, not a claim that every directory or component has already been implemented.
+Current state:
 
-Next controlled phase:
+- Repository Scaffolding: **COMPLETE**
+- Protected Boundary Check: **PASS**
+- Contract v2.1 Source-of-Truth: **PENDING**
+- Core Model implementation: **NOT STARTED**
+- Runtime validation: **NOT STARTED**
+
+The authoritative Contract v2.1 specification has not been located in the repository. Until that source is verified, no Contract v2.1 fields or invariants may be invented from this architecture document.
+
+The next controlled phase is therefore:
 
 ```text
-MASTER_MAP
-   ↓
-Repository Scaffolding
-   ↓
-Contract / Core Schema
-   ↓
-Implementation Queue
+Structural Integrity Audit
+        ↓
+Contract v2.1 Source Reconciliation
+        ↓
+Contract Freeze / Import
+        ↓
+Core Model
+        ↓
+Schema / Contract Validation
 ```
+
+See `docs/architecture/STRUCTURAL_AUDIT.md` for the verified audit result.
