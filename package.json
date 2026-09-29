@@ -5,13 +5,14 @@
   "description": "Network Configuration engineering core",
   "type": "module",
   "scripts": {
-    "test": "npm run test:core && npm run test:validation && npm run test:registry && npm run test:target-profile-registry",
+    "test": "npm run test:core && npm run test:validation && npm run test:registry && npm run test:target-profile-registry && npm run test:apple",
     "test:core": "node --test tests/unit/core-model.test.mjs",
     "test:validation": "node --test tests/unit/contract-validator.test.mjs",
     "test:registry": "node --test tests/unit/serializer-registry.test.mjs",
     "test:target-profile-registry": "node --test tests/unit/target-profile-registry.test.mjs",
     "test:direct": "node scripts/test/run-core-model.mjs",
-    "test:validation:direct": "node scripts/test/run-validation.mjs"
+    "test:validation:direct": "node scripts/test/run-validation.mjs",
+    "test:apple": "node --test tests/unit/apple-configuration-backend.test.mjs tests/unit/apple-backend-server.test.mjs"
   },
   "engines": {
     "node": ">=20"
