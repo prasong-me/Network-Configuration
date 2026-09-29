@@ -168,3 +168,102 @@ The next evidence package should obtain target-specific, versioned client docume
 8. artifact validation and runtime acceptance.
 
 Only fields supported by target evidence should graduate from UNKNOWN to a concrete capability/mapping record.
+
+
+## 11. Five-Target Phase-F Mapping Record
+
+This section is the phase-level handoff for the five planned WireGuard targets.
+
+### iOS / iPadOS
+
+- Identity: **VERIFIED**
+- Tunnel import entry points: **VERIFIED** at product level (archive/file, QR, manual)
+- Core interface/peer semantic mapping: **CANDIDATE / NOT YET CLIENT-VERIFIED**
+- DNS: **UNKNOWN**
+- Routing: **UNKNOWN**
+- Lifecycle/activation: **UNKNOWN**
+- wg-quick hooks/Table/SaveConfig: **NOT UNIVERSAL**
+- Runtime artifact acceptance: **PENDING**
+
+### Android
+
+- Identity: **VERIFIED**
+- Tunnel import/export contract: **UNKNOWN**
+- Core interface/peer semantic mapping: **CANDIDATE / NOT YET CLIENT-VERIFIED**
+- DNS: **UNKNOWN**
+- Routing: **UNKNOWN**
+- Lifecycle/activation: **UNKNOWN**
+- wg-quick hooks/Table/SaveConfig: **NOT UNIVERSAL**
+- Runtime artifact acceptance: **PENDING**
+
+### Windows PC
+
+- Identity: **VERIFIED**
+- Tunnel import/export contract: **UNKNOWN**
+- Core interface/peer semantic mapping: **CANDIDATE / NOT YET CLIENT-VERIFIED**
+- DNS: **UNKNOWN**
+- Routing: **UNKNOWN**
+- Lifecycle/activation: **UNKNOWN**
+- wg-quick hooks/Table/SaveConfig: **NOT UNIVERSAL**
+- Runtime artifact acceptance: **PENDING**
+
+### macOS
+
+- Identity: **VERIFIED**
+- Tunnel import/export contract: **UNKNOWN**
+- Core interface/peer semantic mapping: **CANDIDATE / NOT YET CLIENT-VERIFIED**
+- DNS: **UNKNOWN**
+- Routing: **UNKNOWN**
+- Lifecycle/activation: **UNKNOWN**
+- wg-quick hooks/Table/SaveConfig: **NOT UNIVERSAL**
+- Runtime artifact acceptance: **PENDING**
+
+### Linux
+
+- Identity / userspace interface: **VERIFIED**
+- `wg` core interface/peer semantics: **EVIDENCED**
+- `wg-quick` extensions: **EVIDENCED AS EXTENSIONS**
+- System/network-manager backend mapping: **UNKNOWN**
+- DNS system integration: **UNKNOWN**
+- Routing system integration: **PARTIAL / BACKEND-DEPENDENT**
+- Lifecycle/activation: **BACKEND-DEPENDENT / PENDING**
+- Runtime artifact acceptance: **PENDING**
+
+## 12. Phase-F Workstream Closure
+
+The planned five-target **mapping workstream** is now structurally reconciled in one traceable record. This closes the mapping inventory without converting unverified capability into support.
+
+### Phase-F boundary
+
+**CLOSED FOR MAPPING INVENTORY**
+
+The following five targets have an explicit record:
+
+1. iOS / iPadOS
+2. Android
+3. Windows PC
+4. macOS
+5. Linux
+
+Each record distinguishes identity, known WireGuard semantics, unknown target-specific behavior, non-universal wg-quick extensions, and runtime verification requirements.
+
+### Phase-F Contract-Shape gate
+
+**REMAINS HOLD**
+
+The mapping inventory does not authorize invention of a project-wide Target Profile Contract Shape. No new contract field or enum is introduced by this document.
+
+### Phase-G consequence
+
+**ADAPTERS REMAIN LOCKED**
+
+No executable adapter is added until the project-level Target Profile Shape is satisfied and the target-specific mappings needed by that adapter are evidenced.
+
+## 13. Handoff to the Next Gate
+
+The next permitted implementation gate is:
+
+`Target Profile Contract Shape → capability record schema → five target profile records → mapping tests → adapters`
+
+The current repository state intentionally stops before executable adapter implementation. This is a fail-closed boundary, not an omitted implementation.
+
