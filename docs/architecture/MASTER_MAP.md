@@ -582,3 +582,46 @@ Run #11 remains historical evidence for the Phase F registry gate. Run #12 is th
 ### Next Allowed Gate
 
 The next implementation gate is **Phase F-Shape / Target Profile Contract Shape**, but only after a normative source is supplied and reconciled. No Phase G adapter implementation is authorized before that gate passes.
+
+
+## 19. Research Evidence Handoff — 2026-09-30
+
+The official-source research baseline has been completed in the research workstream and reconciled into an implementation handoff. This handoff does **not** itself authorize a Target Profile Contract Shape or Phase G adapter implementation.
+
+### Evidence now available for Phase F-Shape reconciliation
+
+- WireGuard — official protocol/configuration/platform evidence collected.
+- Surge 5 — official API/CLI/auth/deploy evidence collected.
+- ProxyPin — official repository/wiki/release/App Store capability evidence collected.
+- Mihomo core — official configuration, DNS, routing, proxy-group, and provider evidence collected.
+- Clash Mi — official App Store/site identity and Mihomo-based capability evidence collected; client behavior remains separate from core behavior.
+- Clash Lite — official App Store identity/capability evidence collected; detailed API evidence remains pending.
+- Rocket Proxy — official repository/App Store evidence collected; YAML compatibility is not treated as proof of a shared engine.
+- Clash Live — identity remains unresolved and is not substituted with another client.
+
+### Reconciliation rules carried into implementation
+
+1. Common semantics may be promoted only where semantics are stable and target mappings are explicit.
+2. Target-specific behavior remains inside Target Profiles / Adapters.
+3. UNKNOWN is not a fallback.
+4. Required capability + UNKNOWN blocks compilation according to Contract v2.1 semantics.
+5. No target mapping for an advanced required capability returns UNSUPPORTED_CAPABILITY rather than an invented representation.
+6. Format compatibility does not imply shared implementation.
+7. Documentation/source evidence does not become runtime verification automatically.
+8. Secrets and user-specific credentials remain outside public evidence/config fixtures.
+
+### Current gate disposition
+
+**Phase F-Shape remains HOLD.** The research evidence is now available as source material for reconciliation, but the project still does not have an authoritative project-level Target Profile Contract Shape. Therefore no Target Profile schema, field set, matching policy, duplicate policy, version-selection policy, or Phase G adapter implementation is inferred or introduced from the research alone.
+
+### Research/runtime boundary
+
+The research baseline closes the reference/evidence collection work. Runtime gaps remain explicit and are not promoted to verified status:
+
+- Apple physical-device installation/runtime evidence
+- Apple entitlement/account approval evidence
+- Android runtime evidence
+- Windows CSP/MDM runtime evidence
+- Linux multi-backend runtime evidence
+
+This section is a project-state synchronization record only; it does not change the frozen Contract v2.1 or protected Apple Adapter / DNS Runtime / PR #15 boundaries.
