@@ -79,3 +79,10 @@ Separate the Phase F schema gate from independently implementable target-local c
 ## Audit status
 
 This report itself is the durable error record. It must not be deleted when an error is corrected; lifecycle state should move from OPEN/CORRECTED to VERIFIED or SUPERSEDED only after evidence supports the transition.
+
+
+## Verification Update — 2026-09-30
+
+- ERROR-2026-09-30-001: verified by read-back of `docs/architecture/STRUCTURAL_AUDIT.md`; corrected SHA `fa34c174911feaaeed2b13098dcefa27f89dd8f6`.
+- ERROR-2026-09-30-002: verified by read-back of `docs/architecture/MASTER_MAP.md` and GitHub Actions Run #33 (`36649970862`), validation job `109681594314`, completed successfully for head `11190d6181f8883e66338cefc75dd14767858532`.
+- ERROR-2026-09-30-003: remains OPEN pending reconciliation of the Phase F/Phase G documentation wording with the reverse-roadmap implementation rule.
