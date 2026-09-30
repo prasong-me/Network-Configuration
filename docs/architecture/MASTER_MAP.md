@@ -562,12 +562,14 @@ These exports are composition-only. They do not introduce Contract v2.1 fields, 
 
 ### CI verification
 
-- Workflow: **Core Model and Validation Tests**
-- Run #12: **completed / success**
-- Head SHA: `5fbf90bef148a53fc14770cc6cd8e1dacafff52a`
-- GitHub Actions run ID: `36384567638`
+- Historical Run #12: completed / success — retained as historical evidence.
+- Current repository head: `11190d6181f8883e66338cefc75dd14767858532`.
+- Current CI Run #33: completed / success.
+- GitHub Actions run ID: `36649970862`.
+- Validation job: `109681594314` — completed / success.
+- Verified steps: Checkout, Setup Node.js 20, complete `npm test` gate, and Core Model backup runner all completed successfully.
 
-Run #11 remains historical evidence for the Phase F registry gate. Run #12 is the current post-housekeeping CI evidence.
+The current Run #33 result is the latest CI evidence for the JSON_RAW test-gate commit. Runtime interoperability remains a separate evidence layer.
 
 ## 18. Current Gate State
 
