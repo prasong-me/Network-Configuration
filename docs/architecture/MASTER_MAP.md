@@ -470,7 +470,11 @@ Schema / Contract Validation    IMPLEMENTED
         ↓
 Serializer Registry              IMPLEMENTED
         ↓
-Target Profile / Capability Registry  NEXT
+Target Profile Registry Mechanism    IMPLEMENTED
+        ↓
+Target Profile Contract Shape        HOLD / PENDING NORMATIVE SOURCE
+        ↓
+Phase G Adapter Layer                LOCKED / BLOCKED BY PHASE F SHAPE
 ```
 
 See `docs/architecture/STRUCTURAL_AUDIT.md` and `docs/architecture/CONTRACT_V2_1_RECONCILIATION.md` for the audit and reconciliation records.
