@@ -46,7 +46,7 @@ The CI evidence section was not updated after later repository commits and the J
 A reader could mistake historical Run #12 for the latest CI evidence or infer a passed state for the current head.
 
 ### CORRECTION
-Replace the stale latest-CI claim with the current evidence-backed state: Run #33 is associated with head `11190d6181f8883e66338cefc75dd14767858532` and remains `IN_PROGRESS` until a completed runner result is observed.
+Replace the stale latest-CI claim with the current evidence-backed state: Run #33 is associated with head `11190d6181f8883e66338cefc75dd14767858532` and is now `completed / success`.
 
 ### VERIFICATION
 Pending immediate repository read-back after correction and later CI polling.
