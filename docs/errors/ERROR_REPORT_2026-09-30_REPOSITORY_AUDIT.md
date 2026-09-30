@@ -10,7 +10,7 @@ Rule: every discovered error is recorded as `ERROR → WHAT HAPPENED → ROOT CA
 
 ## ERROR-2026-09-30-001
 
-**Status:** CORRECTED / VERIFICATION PENDING
+**Status:** VERIFIED
 
 ### WHAT HAPPENED
 `docs/architecture/STRUCTURAL_AUDIT.md` still stated that Contract v2.1 was not present, that no implementation code had been added, and that Core implementation was blocked on the authoritative contract source.
@@ -34,7 +34,7 @@ A gate/audit document that describes current state must be reconciled whenever t
 
 ## ERROR-2026-09-30-002
 
-**Status:** CORRECTED / VERIFICATION PENDING
+**Status:** VERIFIED
 
 ### WHAT HAPPENED
 `docs/architecture/MASTER_MAP.md` contained a stale "latest CI" record for Run #12 / head `5fbf90...`, even though the repository has since advanced to head `11190d...` and the current Run #33 was observed as `IN_PROGRESS`.
