@@ -775,3 +775,16 @@ Current intake set:
 Intake records are maintained in docs/architecture/PROJECT_EXTENSION_INTAKE.md.
 
 This queue does not define Target Profile fields, modify Contract v2.1, unlock Phase G, or reopen the closed DNS + Apple MobileConfig implementation.
+
+
+## 22. Current Repository Snapshot — 2026-09-30
+
+This section supersedes any older repository-head wording above.
+
+- Current `main` head: `daffe4080ee18b4dc485c896f8b3caf43c63554d`.
+- Latest verified CI run for the implemented code gate: Run #33, run ID `36649970862`, head `11190d6181f8883e66338cefc75dd14767858532`, completed / success.
+- Subsequent commits after Run #33 are documentation/audit reconciliation commits; they are not represented by Run #33 and must not be described as CI-tested by that run.
+- Structural audit correction: `docs/architecture/STRUCTURAL_AUDIT.md` SHA `fa34c174911feaaeed2b13098dcefa27f89dd8f6`.
+- Repository audit error record: `docs/errors/ERROR_REPORT_2026-09-30_REPOSITORY_AUDIT.md` SHA `3e6424cc5d2cb7d29dae2085ee9f2e4d3e2bb367`.
+
+The repository snapshot and CI evidence remain separate evidence layers.
