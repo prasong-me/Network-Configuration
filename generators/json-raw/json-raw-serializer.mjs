@@ -18,5 +18,5 @@ export function serializeJsonRaw(representation) {
     throw new TypeError('JSON_RAW serialization requires a JSON-serializable value');
   }
 
-  return serialized + '\\n';
+  return serialized + '\n';
 }
