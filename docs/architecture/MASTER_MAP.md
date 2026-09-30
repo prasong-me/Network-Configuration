@@ -498,7 +498,7 @@ The registry:
 
 The frozen Contract v2.1 remains the normative shape source. Duplicate handling, version-selection policy, and other registry policies are intentionally not inferred from the contract.
 
-The complete test gate now includes the Serializer Registry unit suite via `npm run test:registry`. GitHub Actions is configured to include `core/registry/**` and execute the expanded `npm test` gate. CI remains **CONFIGURED** until an actual GitHub Actions runner result is observed.
+The complete test gate includes the Serializer Registry and JSON_RAW unit suites via `npm test`. GitHub Actions is configured to execute the expanded gate. Current Run #33 has now produced a completed successful runner result.
 
 
 ### Phase F Gate Baseline — Target Profile Registry
@@ -557,8 +557,9 @@ These exports are composition-only. They do not introduce Contract v2.1 fields, 
 | Registry barrel commit | `5fbf90bef148a53fc14770cc6cd8e1dacafff52a` |
 | Core public API commit | `dc2d7fba873d1806ac1b533a2b2c8b37ef56303b` |
 | Master Map synchronization commit | `89cbf33c5a8c838d98f75273b3aeeab257da4458` |
-| Latest CI head SHA | `5fbf90bef148a53fc14770cc6cd8e1dacafff52a` |
-| Latest CI | Run #12 — completed / success |
+| Historical CI head SHA | `5fbf90bef148a53fc14770cc6cd8e1dacafff52a` |
+| Latest CI head SHA | `11190d6181f8883e66338cefc75dd14767858532` |
+| Latest CI | Run #33 — completed / success |
 
 ### CI verification
 
