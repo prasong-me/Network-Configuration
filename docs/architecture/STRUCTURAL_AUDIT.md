@@ -1,23 +1,29 @@
 # Structural Integrity Audit — Baseline Reconciliation
 
-> Audit status: **Verified / Pending Contract Source**
+> Audit status: **Verified / Current-State Reconciled**
+>
+> Historical note: this document began as a pre-implementation structural gate. The current state below has been reconciled against the repository after Contract v2.1 freeze and subsequent Core/validation/registry implementation.
 
 ## Scope
 
-This audit covers the repository structure and the protected-boundary checks required before Core Model / Contract implementation begins.
+This audit covers repository structure, current implementation boundaries, and protected-boundary checks. It does not certify target/OS runtime interoperability.
 
 ## Verified
 
 - Repository: `prasong-me/Network-Configuration`
 - Default branch: `main`
 - `docs/architecture/MASTER_MAP.md` exists.
-- Repository scaffolding is present as structural placeholders.
-- `core/contracts/.gitkeep` exists.
-- `targets/ios/.gitkeep` exists as a target-definition boundary only.
-- `adapters/ios/` is intentionally absent; no Apple Adapter implementation was introduced.
-- No repository Pull Request matching **#15** was found during this audit.
-- No Contract v2.1 authoritative specification was found in the repository search.
-- No implementation code was added to Core, adapters, generators, validators, or runtime components during this audit.
+- Repository scaffolding remains present.
+- `core/contracts/contract-v2.1.d.ts` exists and is frozen as the Contract v2.1 baseline.
+- Core Model implementation exists under `core/model/`.
+- Contract/schema validation implementation exists under `validators/`.
+- Serializer Registry implementation exists under `core/registry/`.
+- Target Profile Registry mechanism exists under `core/registry/` as a schema-independent mechanism.
+- JSON_RAW serializer implementation exists under `generators/json-raw/`.
+- Unit-test coverage exists under `tests/unit/` for the currently implemented Core, validation, registry, public API, and JSON_RAW units.
+- `adapters/ios/` remains absent; no Apple Adapter implementation was introduced by this audit.
+- No DNS Runtime implementation was introduced by this audit.
+- PR #15 remains a protected boundary and is not absorbed by this audit.
 
 ## Protected Boundary Result
 
@@ -25,35 +31,58 @@ This audit covers the repository structure and the protected-boundary checks req
 |---|---|---|
 | Apple Adapter | PASS | Left untouched; `adapters/ios/` remains absent |
 | DNS Runtime | PASS | No runtime implementation changed |
-| PR #15 | PASS | No matching repository PR found; no changes absorbed |
-| Structure vs Implementation | PASS | Audit only; no runtime behavior introduced |
+| PR #15 | PASS | No changes absorbed |
+| Structure vs Implementation | PASS | Current implementation is recorded separately from structure and validation |
 
 ## Contract v2.1 Source-of-Truth Reconciliation
 
-The architecture map references **Contract v2.1**, but the authoritative specification is not currently present in the repository and was not found by repository search.
+Contract v2.1 is frozen in:
 
-Therefore:
+`core/contracts/contract-v2.1.d.ts`
 
-**Contract v2.1 status = PENDING SOURCE**
+Reconciliation record:
 
-No field names, types, invariants, version rules, or serialization requirements are to be invented from the architectural reference alone.
+`docs/architecture/CONTRACT_V2_1_RECONCILIATION.md`
+
+No additional Contract v2.1 fields, enum values, output formats, or invariants are inferred by this audit.
+
+## Current Implementation Boundary
+
+The following are implementation facts, not claims of runtime interoperability:
+
+- Core state engine: implemented.
+- CompileResult builder/invariant checks: implemented.
+- Diagnostic factory: implemented.
+- Input schema validator: implemented.
+- Contract validator: implemented.
+- Serializer Registry mechanism: implemented.
+- Target Profile Registry mechanism: implemented without defining a Target Profile Contract Shape.
+- JSON_RAW serializer: implemented as a target-neutral serialization utility.
+
+Target-specific semantics remain subject to their evidence and contract gates. A target-local implementation must not be used to retroactively define Contract v2.1 or a held Target Profile schema.
+
+## Validation Boundary
+
+The repository separates:
+
+1. source/repository state;
+2. implementation;
+3. unit-test execution;
+4. CI runner evidence;
+5. export/artifact validation;
+6. target/OS acceptance;
+7. runtime interoperability.
+
+A pass at an earlier layer does not certify a later layer.
 
 ## Gate Decision
 
-The repository is structurally ready for the next controlled phase, but **Core Model / Contract implementation is blocked on authoritative Contract v2.1 source reconciliation**.
+The historical pre-implementation gate recorded by this document is superseded by the current repository state. Current implementation status must be read from `MASTER_MAP.md` together with the exact repository files and CI evidence.
 
-Allowed next action:
-
-`authoritative Contract v2.1 source → verify → import/freeze → implement Core Model`
-
-Not allowed:
-
-`architecture reference → invent Contract v2.1 fields → implement`
-
-## Governing Invariant
+The invariant remains:
 
 ```text
 STRUCTURE ≠ IMPLEMENTATION ≠ VALIDATED SYSTEM
 ```
 
-This audit does not certify runtime functionality. It certifies only the current structural/boundary state and identifies the missing contract source required for implementation.
+This audit does not certify runtime functionality. It records the reconciled structural and implementation boundary and preserves the protected areas.
