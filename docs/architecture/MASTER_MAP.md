@@ -749,3 +749,22 @@ Continue through all currently allowed work units, skipping only genuinely block
 7. the next allowed gate.
 
 This protocol does not override Contract v2.1, protected boundaries, or normative-source requirements.
+
+## 21. Project Extension Intake Queue
+
+Additional projects are tracked as **non-normative intake** and may be added incrementally without reopening the closed DNS + Apple MobileConfig baseline.
+
+Current intake set:
+
+- WireGuard — evidence available; integration awaits approved Target Profile shape.
+- Mihomo — configuration/DNS/routing/provider evidence available; integration awaits approved shape.
+- Clash Mi — identity and Mihomo-based capability evidence available; client behavior remains separate from core behavior.
+- Clash Lite — identity/capability evidence available; detailed API remains PENDING.
+- ProxyPin — capability evidence available; target serialization is not inferred.
+- Surge 5 — API/auth/deploy evidence available; credentials remain schema-only and secrets are excluded.
+- Rocket Proxy — evidence available; shared YAML engine is not inferred.
+- Clash Live — identity unresolved; remains BLOCKED and is not substituted.
+
+Intake records are maintained in docs/architecture/PROJECT_EXTENSION_INTAKE.md.
+
+This queue does not define Target Profile fields, modify Contract v2.1, unlock Phase G, or reopen the closed DNS + Apple MobileConfig implementation.
