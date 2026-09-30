@@ -625,3 +625,127 @@ The research baseline closes the reference/evidence collection work. Runtime gap
 - Linux multi-backend runtime evidence
 
 This section is a project-state synchronization record only; it does not change the frozen Contract v2.1 or protected Apple Adapter / DNS Runtime / PR #15 boundaries.
+
+## 20. Continuous Work Execution Protocol
+
+This is the operational rule for continuing implementation without inventing blocked work.
+
+### 20.1 Work-unit rule
+
+Work is executed **one target / one concrete work unit at a time**.
+
+    READ CURRENT STATE
+          ↓
+    IDENTIFY NEXT ALLOWED WORK
+          ↓
+    CHECK DEPENDENCIES / PROTECTED BOUNDARIES
+          ↓
+    IMPLEMENT ONLY IF ALLOWED
+          ↓
+    VERIFY IMMEDIATELY
+          ↓
+    IF BLOCKED → RECORD BLOCK + SKIP
+          ↓
+    MOVE TO NEXT ALLOWED WORK UNIT
+          ↓
+    RECONCILE RESULT
+          ↓
+    UPDATE ROADMAP / MASTER MAP
+          ↓
+    UPDATE MASTER DATABASE / EVIDENCE SOURCE
+          ↓
+    READ-BACK VERIFICATION
+          ↓
+    CONTINUE
+
+### 20.2 Block-and-skip rule
+
+A work unit is **BLOCKED** when its required normative source, contract shape, protected dependency, runtime capability, or other mandatory prerequisite is unavailable.
+
+When blocked:
+1. Do not invent fields, mappings, defaults, compatibility rules, or implementation behavior.
+2. Record the exact blocker and affected work unit.
+3. Mark the work unit BLOCKED, PENDING, UNKNOWN, or RUNTIME_UNVERIFIED as appropriate.
+4. Skip that work unit.
+5. Continue to the next independent work unit that is currently allowed.
+6. Revisit the blocked unit only when its prerequisite becomes available.
+
+A blocked unit must never stall unrelated work.
+
+### 20.3 Completion rule
+
+A work unit is not called complete merely because code exists.
+
+Completion requires:
+- implementation or documented result exists;
+- immediate verification was performed;
+- protected boundaries remain intact;
+- no unsupported semantics were introduced;
+- evidence/status is recorded;
+- Roadmap/Plan is reconciled;
+- Master Database/evidence record is reconciled;
+- repository read-back confirms the committed state.
+
+### 20.4 Failure rule
+
+If verification fails:
+
+    FAIL
+     ↓
+    DIAGNOSE
+     ↓
+    FIX IF WITHIN AUTHORIZED SCOPE
+     ↓
+    VERIFY AGAIN
+
+If the failure depends on a blocked prerequisite:
+
+    FAIL → BLOCKED → RECORD → SKIP → NEXT WORK UNIT
+
+No failure is converted into PASS by omission.
+
+### 20.5 Repository write rule
+
+New verified information must be merged into the existing authoritative record where that record is designated as the Master Database/evidence source.
+
+The write sequence is:
+
+    READ OLD
+     → MERGE NEW
+     → PRESERVE OLD
+     → WRITE SAME AUTHORITATIVE FILE
+     → READ BACK
+     → VERIFY
+
+Do not create a parallel database merely to avoid reconciling the existing one.
+
+### 20.6 Status vocabulary
+
+Use only evidence-backed states:
+- COMPLETE
+- IMPLEMENTED
+- VERIFIED
+- PARTIAL
+- PENDING
+- BLOCKED
+- UNKNOWN
+- RUNTIME_UNVERIFIED
+- UNSUPPORTED_CAPABILITY
+- LOCKED
+
+UNKNOWN is never a fallback representation.
+
+### 20.7 Final handoff rule
+
+Do not return a progress report after every trivial sub-step.
+
+Continue through all currently allowed work units, skipping only genuinely blocked units, and return a consolidated handoff containing:
+1. completed work;
+2. skipped/blocked work and exact reason;
+3. verification evidence;
+4. Roadmap/Plan reconciliation;
+5. Master Database/evidence reconciliation;
+6. latest repository snapshot;
+7. the next allowed gate.
+
+This protocol does not override Contract v2.1, protected boundaries, or normative-source requirements.
