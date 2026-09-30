@@ -2,6 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { serializeJsonRaw } from '../../generators/json-raw/json-raw-serializer.mjs';
 
+// This suite is part of the repository test gate.
+
 test('JSON_RAW serializer preserves representation as formatted JSON', () => {
   const representation = { target: 'generic', settings: { enabled: true } };
   assert.equal(
