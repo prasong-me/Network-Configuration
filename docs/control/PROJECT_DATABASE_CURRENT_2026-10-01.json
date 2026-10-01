@@ -1,0 +1,51 @@
+{
+  "schema_version": "2026-10-01",
+  "project": "Network Configuration",
+  "status": "CURRENT_CONTROL_BASELINE",
+  "database_model": "single_logical_project_central_database",
+  "roadmaps": {
+    "project": "public project structure",
+    "working": "internal execution route; not project roadmap"
+  },
+  "provenance_chain": [
+    "developer",
+    "platform",
+    "version",
+    "target",
+    "capability",
+    "evidence",
+    "sdk_api",
+    "tool",
+    "command_interface",
+    "source",
+    "build",
+    "runtime",
+    "verification"
+  ],
+  "tool_semantics": {
+    "status_chain": [
+      "EXECUTED",
+      "OUTPUT_PRESENT",
+      "OUTPUT_VALID",
+      "MATCHED",
+      "VERIFIED",
+      "PASS"
+    ],
+    "rule": "RUN SUCCESS does not imply OUTPUT VALID, MATCHED, VERIFIED, or project completion"
+  },
+  "android": {
+    "target": "android-application",
+    "minimum_api": 31,
+    "policy": "API 31+ compatibility matrix",
+    "current_branch": "feat/android-app-v1",
+    "current_config": {
+      "min_sdk": 31,
+      "compile_sdk": 35,
+      "target_sdk": 35,
+      "java": 17,
+      "kotlin": "2.0.21",
+      "host": "Android WebView"
+    },
+    "runtime_state": "Android 12 device/emulator not verified"
+  }
+}
