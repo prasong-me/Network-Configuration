@@ -44,3 +44,23 @@ The next work unit must map, separately per target:
 8. artifact acceptance/runtime verification
 
 No adapter is authorized from product identity evidence alone.
+
+
+## iOS / iPadOS Target Reconciliation — Evidence-Bounded
+
+### Verified
+
+| Capability | Evidence | Result |
+|---|---|---|
+| Official client identity | EVD-WG-009 | Verified for iPhone/iPad |
+| Tunnel import from archives/files | EVD-WG-009 | Verified at product-listing level |
+| Tunnel import from QR codes | EVD-WG-009 | Verified at product-listing level |
+| Manual tunnel creation | EVD-WG-009 | Verified at product-listing level |
+
+### Still Pending
+
+The available evidence does **not** establish field-level mapping for interface/peer fields, DNS behavior, routing behavior, activation lifecycle, unsupported fields, or runtime installation/activation results on a physical iOS/iPadOS device. These remain **PENDING** and are not inferred.
+
+### Boundary
+
+This reconciliation does not modify Contract v2.1, the protected Apple Adapter, DNS Runtime, or Phase F Target Profile Contract Shape.
