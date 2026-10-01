@@ -981,3 +981,34 @@ For project execution, use this order:
 
 Lower-level records must not override newer authoritative evidence.
 
+
+
+## 24. Closure Reconciliation — 2026-10-01
+
+This section records the current closure state after reconciling the central evidence dossier with newer repository evidence. Historical evidence is preserved; newer authoritative evidence controls Current State.
+
+| Record | Current status | Closure basis |
+|---|---|---|
+| MISS-001 | RESOLVED | Current JSON Schema released specification verified |
+| MISS-002 | RESOLVED | RFC 8259 / STD 90 verified |
+| MISS-003 | RESOLVED | Official systemd-resolved manual verified |
+| MISS-004 | RESOLVED | RFC 791 + retained updates verified |
+| MISS-005 | RESOLVED AT SOURCE LEVEL | Repository workflow / runner matrix verified |
+| MISS-006 | RESOLVED AT SOURCE LEVEL | Exact MobileConfig validator implementation verified |
+| MISS-007 | BLOCKED | Physical Apple device runtime evidence absent |
+| MISS-008 | BLOCKED | Project-specific Apple entitlement/account approval evidence absent |
+| MISS-009 | BLOCKED | Android 12 physical/emulator runtime not executed; CI APK build is verified |
+| MISS-010 | BLOCKED | Windows + MDM runtime environment unavailable |
+| MISS-011 | CLOSED / VERIFIED | Linux Runtime Tests #1 succeeded; Run ID 36880334118; Job 110430180369; tested commit ba6d038ed342e97aad2d43a11ac8e9d928107ddc |
+
+### Closure rule
+
+A work item is CLOSED only when the required result exists, verification has been performed, evidence is recorded, protected boundaries remain intact, and the resulting repository state has been read back. CI build success alone does not close runtime interoperability work.
+
+### Central-state reconciliation
+
+An older central dossier recorded MISS-011 as BLOCKED. Newer repository evidence records it as CLOSED / VERIFIED. The older state remains historical; Current State is CLOSED / VERIFIED.
+
+The Android source/build-path statement that the source/build path was unavailable is also superseded by newer evidence showing the Web source and Android wrapper in prasong-me/-Configuration-, branch feat/android-app-v1, with Android CI Run #14 producing the debug APK. Android 12 runtime itself remains BLOCKED / UNVERIFIED.
+
+The reconciled closure record is also stored in the central project Library as CENTRAL_DATABASE_RECONCILIATION_2026-10-01.md.
