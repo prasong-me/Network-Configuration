@@ -1012,3 +1012,48 @@ An older central dossier recorded MISS-011 as BLOCKED. Newer repository evidence
 The Android source/build-path statement that the source/build path was unavailable is also superseded by newer evidence showing the Web source and Android wrapper in prasong-me/-Configuration-, branch feat/android-app-v1, with Android CI Run #14 producing the debug APK. Android 12 runtime itself remains BLOCKED / UNVERIFIED.
 
 The reconciled closure record is also stored in the central project Library as CENTRAL_DATABASE_RECONCILIATION_2026-10-01.md.
+
+
+## 25. Current Control Baseline — Database / Evidence / Tool Semantics / Android — 2026-10-01
+
+This section records the latest project-wide operating reconciliation. It does not modify Contract v2.1 or protected boundaries.
+
+### 25.1 Single logical database
+
+Project Database and Central Database are one logical database using one schema. Canonical control records are `docs/control/PROJECT_DATABASE_CURRENT_2026-10-01.md` and `.json`. Historical evidence remains immutable.
+
+### 25.2 Evidence completion
+
+Target-specific implementation begins from a complete Developer/Organization/Platform evidence set rather than searching only for the current coding error. Evidence covers relevant specification, documentation, API/SDK, toolchain, versions, compatibility, security, permissions, testing, deployment and limitations.
+
+### 25.3 Cross-consistency graph
+
+Developer → Platform → Version → Target → Capability → Evidence → SDK/API → Tool → Command/Interface → Code → Build → Runtime → Verification
+
+Unmatched or conflicting data is not implementation-ready.
+
+### 25.4 Tool semantic compatibility
+
+Tool/function names are not semantic contracts. A generic function such as `run` may mean different operations in different tools. Tool use requires a Tool Contract and Semantic Registry.
+
+Execution states are distinct: `EXECUTED`, `OUTPUT_PRESENT`, `OUTPUT_VALID`, `MATCHED`, `VERIFIED`, `PASS`. Empty/unusable output after execution success is `NO_OUTPUT`, not project success.
+
+Canonical record: `docs/control/TOOL_SEMANTIC_COMPATIBILITY_BASELINE_2026-10-01.md`.
+
+### 25.5 Android support interpretation
+
+The project requirement is **Android 12 and later**, interpreted as minimum API 31 plus compatibility evidence for supported releases above API 31. Android 12 is not the only target version.
+
+Current implementation branch evidence: `prasong-me/-Configuration-` / `feat/android-app-v1` contains the Android WebView wrapper and CI packaging path with `minSdk=31`, `compileSdk=35`, `targetSdk=35`, Java 17 and Kotlin 2.0.21.
+
+The current build configuration is not runtime proof. Android 12 physical-device/emulator runtime remains unverified. The existing Android-12-only research record must evolve into an API 31+ versioned compatibility evidence set before full Android Target Evidence Completion can be claimed.
+
+### 25.6 Validation separation
+
+Source/Syntax → Schema/Contract → Semantic/Rule → Target Compatibility → Serialization/Artifact → Build/CI → OS Acceptance → Runtime Interoperability
+
+A successful earlier gate must not be promoted to a later gate automatically.
+
+### 25.7 Existing-first
+
+Before creating new project components, inspect current database, evidence, roadmap and repository source. Reuse existing components where applicable. Replacement/rework requires recorded rationale and dependency impact.
