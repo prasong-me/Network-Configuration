@@ -788,3 +788,196 @@ This section supersedes any older repository-head wording above.
 - Repository audit error record: `docs/errors/ERROR_REPORT_2026-09-30_REPOSITORY_AUDIT.md` SHA `3e6424cc5d2cb7d29dae2085ee9f2e4d3e2bb367`.
 
 The repository snapshot and CI evidence remain separate evidence layers.
+
+
+## 23. Merged Project Operating Baseline
+
+> Canonical operational rules merged from the project's central working-rules source and the mandatory preflight gate. These rules supplement the architectural map and do not modify Contract v2.1 or protected boundaries.
+
+### 23.1 Mandatory preflight
+
+Before every work operation, read and verify the central project data before implementation.
+
+Required checks:
+- Project Goal
+- Roadmap
+- Current Node
+- Current State
+- Latest Evidence
+- Error / Blocker
+- Dependency
+- Relevant constraints / protected areas
+
+Do not begin from memory, assumption, or an old conversation state.
+
+If these checks have not been verified:
+- do not implement;
+- do not run tests;
+- do not change the Roadmap;
+- do not report VERIFIED / PASS / COMPLETE.
+
+Use UNKNOWN / UNVERIFIED until evidence is confirmed.
+
+### 23.2 Evidence and missing-data rules
+
+1. Check Evidence before implementation.
+2. If information is missing, determine whether another independent Node can proceed.
+3. If another Node can proceed, record SKIP with the missing dependency/reason and continue.
+4. If the missing information is a mandatory dependency and no independent Node remains, request only that dependency and stop.
+5. Never guess and never create Evidence.
+
+### 23.3 Roadmap and Working Route
+
+- Project Roadmap is the project path.
+- Working Route is the execution method for the current Node.
+- Working Route must never replace or alter the Roadmap.
+- NOT TESTED is a status, not an instruction to stop.
+- The Roadmap may not be changed implicitly.
+
+### 23.4 One-Node execution
+
+Execute exactly one Node at a time:
+
+`READ → CHECK → IMPLEMENT/ACT → VERIFY → RECORD → CLOSE → NEXT NODE`
+
+Do not work ahead on multiple Nodes. When the current Node is completed, continue to the next allowed Node.
+
+### 23.5 Tool and implementation rules
+
+- Use the GPT/ChatGPT system tools appropriate to the task.
+- Code analysis, writing, modification, and verification are performed primarily through GPT/ChatGPT tools.
+- GitHub is Repository / Source / Evidence according to the Roadmap or explicit instruction; it is not the automatic primary workspace.
+- Use a coding tool appropriate to the language, framework, runtime, and task.
+- New or modified code must conform to the existing Architecture and Contract.
+- Check dependencies and integration.
+- Placeholder code must never be treated as complete.
+
+### 23.6 Test gate
+
+Before any real test run, perform two central-data checks:
+
+**Round 1**
+- Test Status
+- Dependency
+- Requirement
+- Latest Evidence
+
+**Round 2**
+- Current State
+- Latest Changes
+- Blocker
+- Current Roadmap Node
+
+Only after both rounds are confirmed may the test run proceed.
+
+Test results must be recorded back into the central evidence/state record.
+
+### 23.7 Error protocol
+
+For every error:
+
+`Error → Root Cause → Side Effect → Fix → Verify → Evidence → Update State → Continue`
+
+If the Node cannot continue:
+- mark SKIP or BLOCK;
+- record the exact reason;
+- continue with another independently allowed Node.
+
+### 23.8 Response verification gate
+
+Before every project response, verify:
+- central project data;
+- Current State;
+- Evidence;
+- Working Route.
+
+If evidence is absent, report UNKNOWN / UNVERIFIED. Never confirm a result from inference.
+
+### 23.9 Evidence registry standard
+
+Each evidence record should identify:
+- Evidence ID
+- Node
+- What it proves
+- Source
+- Source type
+- Verification date
+- Verification result
+- VERIFIED / UNVERIFIED state
+
+The evidence-search tool may change, but the evidence-record format remains consistent.
+
+### 23.10 External research rule
+
+Do not automatically perform external research.
+
+When external research is explicitly authorized:
+1. prefer Official / Authoritative sources;
+2. record Source + Evidence + verification date;
+3. if no authoritative source exists, report UNKNOWN / OFFICIAL SOURCE NOT FOUND.
+
+### 23.11 Stop rule
+
+- Evidence exists and work is possible → DO THE WORK.
+- Evidence is missing → SKIP / RECORD.
+- Work is blocked but another Node is possible → SKIP / RECORD and continue.
+- No executable Node remains → STOP and record the blocker and required dependency.
+
+### 23.12 Highest-level execution sequence
+
+`CENTRAL DATA → EVIDENCE → WORKING ROUTE → ROADMAP → ONE NODE → APPROPRIATE TOOL → VERIFY → RECORD EVIDENCE → UPDATE CENTRAL STATE → NEXT NODE`
+
+Never:
+- guess;
+- fabricate Evidence;
+- work ahead;
+- change the Roadmap implicitly;
+- work multiple Nodes in parallel;
+- claim success without evidence;
+- stop merely because a test has not yet been run.
+
+### 23.13 Current runtime reconciliation — 2026-10-01
+
+The previously supplied project summary recorded:
+
+`MISS-011 → CODE IMPLEMENTED + TEST VERIFIED / RUNTIME BLOCKED`
+
+The current repository contains newer authoritative evidence:
+
+- `docs/testing/MISS-011-LINUX-RUNTIME-EVIDENCE.md`
+- Status: **CLOSED — VERIFIED**
+- Linux Runtime Tests Run #1: **success**
+- Run ID: `36880334118`
+- Commit tested: `ba6d038ed342e97aad2d43a11ac8e9d928107ddc`
+- Job: `110430180369`
+- Evidence artifact: `linux-runtime-evidence`
+- Artifact SHA-256: `155eb7b5bd83aa99b8787150c359b45da5765372b23ea5aede6cfb1a2bb9c2da`
+
+Therefore the old BLOCKED state is retained only as historical state. The current repository state is:
+
+`MISS-011 → CLOSED / VERIFIED`
+
+No simulated runtime result was used.
+
+### 23.14 Current Central-State rule
+
+When project summaries, memory files, or older handoff documents conflict with newer repository evidence:
+- do not silently overwrite the historical record;
+- preserve the historical state as historical;
+- identify the conflict;
+- use the newer authoritative evidence for Current State;
+- update the central map so the conflict is no longer ambiguous.
+
+### 23.15 Canonical source hierarchy
+
+For project execution, use this order:
+
+1. Frozen Contract / protected normative source
+2. Current repository evidence and committed authoritative project records
+3. Central Project Map / Operating Baseline
+4. Evidence records and verified test artifacts
+5. Project summaries / handoff notes
+6. Conversation memory
+
+Lower-level records must not override newer authoritative evidence.
+
