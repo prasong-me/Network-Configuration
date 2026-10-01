@@ -1,0 +1,52 @@
+name: Linux Runtime Tests
+
+on:
+  push:
+    paths:
+      - 'tools/runtime/linux-runtime-probe.mjs'
+      - 'tests/runtime/**'
+      - '.github/workflows/linux-runtime-tests.yml'
+      - 'core/contracts/contract-v2.1.d.ts'
+  workflow_dispatch:
+
+jobs:
+  linux-runtime:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Linux runtime backends
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y             iproute2             network-manager             systemd-resolved             nftables             wireguard-tools             openvpn
+
+      - name: Provision runtime services
+        run: |
+          sudo modprobe tun || true
+          sudo systemctl enable --now NetworkManager || true
+          sudo systemctl enable --now systemd-resolved || true
+          sudo systemctl restart NetworkManager || true
+
+      - name: Verify probe contract
+        run: node tests/runtime/linux-runtime-probe.test.mjs
+
+      - name: Run Linux runtime probe
+        run: |
+          sudo node tools/runtime/linux-runtime-probe.mjs | tee linux-runtime-result.json
+
+      - name: Assert runtime success
+        run: |
+          node -e "const fs=require('fs'); const r=JSON.parse(fs.readFileSync('linux-runtime-result.json','utf8')); if(r.status!=='SUCCESS'){console.error(JSON.stringify(r,null,2)); process.exit(1)}"
+
+      - name: Upload runtime evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-runtime-evidence
+          path: linux-runtime-result.json
