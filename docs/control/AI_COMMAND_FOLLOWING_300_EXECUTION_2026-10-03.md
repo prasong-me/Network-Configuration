@@ -53,3 +53,33 @@ The final 300-round result may only be recorded after the external execution rea
 
 Do not mark the 300-round test COMPLETE/CLOSED until:
 Verify → Record all completed rounds → Calculate PASS/FAIL → Read-back → Update State → Verify Repository.
+
+
+## Iris Error Record — 2026-10-03
+
+### ERROR
+- ID: AICF-IRIS-001
+- Category: RUNTIME_LIMITATION / EXECUTION-CONTROL ERROR
+- Claim: Iris reported the 300-round automated test as started, but did not obtain a terminal result before responding.
+
+### ROOT CAUSE
+- The Browser Use run remained non-terminal and repeatedly returned `status: unknown`.
+- Iris nevertheless returned control to the user instead of continuing verification until a terminal result or a verified hard limitation was established.
+
+### SIDE EFFECT
+- The user did not receive the requested completed 300-round result.
+- Completed-round count could not be promoted beyond verified evidence.
+- The test remains OPEN, not PASS/CLOSED.
+
+### FIX / CONTROL
+- Record this as an Iris execution error, not as an AI command-following failure.
+- Continue using the same run ID for verification; do not create duplicate runs merely because an intermediate wait is non-terminal.
+- Do not claim 300 rounds, PASS rate, or completion without terminal evidence.
+
+### EVIDENCE
+- Browser run: `69caf88c-5c8c-4e57-a181-401c7c494c9e`
+- Verification observations: multiple `wait_browser_result` calls returned `terminal=false`, `status=unknown`.
+- Registry remains OPEN until terminal result is obtained or the runtime limitation is conclusively established.
+
+### STATUS
+VERIFIED-ERROR / OPEN-TEST
