@@ -327,3 +327,27 @@ Result:
 
 Evidence Registry:
 - DEVENG-001 through DEVENG-011 are recorded in the new evidence map with ID, Node, Claim, Source, Source Type, Verification Date, Result, Status.
+
+
+## Tool Control / Execution Architecture Evidence — 2026-10-03
+
+Recorded source map:
+- docs/control/TOOL_CONTROL_EXECUTION_ARCHITECTURE_EVIDENCE_2026-10-03.md
+- Commit: 8a0f8b24edb800f673adcda439b4b4114ad39807
+
+Evidence IDs:
+- CTRL-ARCH-001 through CTRL-ARCH-007
+
+Coverage:
+1. MCP client/server and capability structure
+2. MCP authorization
+3. OpenAI MCP tool approval / authorization
+4. OpenAI MCP server-side authorization
+5. GitHub Actions workflow/permission controls
+6. GitHub OIDC identity controls
+7. Browser Use managed execution architecture
+
+Control conclusion:
+- User authorization to use tools is one permission layer; it does not erase platform/connector/runtime/rate-limit boundaries.
+- Tool execution must remain separated from output validation and verification.
+- The project's existing execution contract remains authoritative and unchanged.
