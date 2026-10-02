@@ -433,3 +433,42 @@ This classification does not promote any domain to READY and does not alter the 
 | ENGROLE-004 | Verification tiers | Workspace needs independent verification/readiness layers | Engineering Role Registry | Project control | 2026-10-03 | V0-V7 recorded | VERIFIED-DESIGN |
 | ENGROLE-005 | Promotion control | Weak evidence or tool/test success cannot independently promote a record to READY/CLOSED | Existing project controls | Project control | 2026-10-03 | Promotion rules recorded | VERIFIED-DESIGN |
 | ENGROLE-006 | Authority classification | Current authority domains are V2 VERIFIED-SOURCE; individual roles remain open | Authority Map + official sources | Evidence synthesis | 2026-10-03 | Classification recorded | VERIFIED-DESIGN |
+
+## Engineering Record Dimensions — 2026-10-03
+
+### Node
+ENGINEERING IDENTITY / ROLE / AUTHORITY / EVIDENCE DATA MODEL
+
+### Registry
+- `docs/research/ENGINEERING_ROLE_REGISTRY_2026-10-03.md`
+- Commit: `a000045470840499d0d4ad1987cecd825cf55e59`
+- Read-back blob SHA: `bde8f1a36f0300fc4d86d42c72ae8a7a55ad6b13`
+
+### Added dimensions
+1. Identity
+2. Role
+3. Authority
+4. Technical responsibility
+5. Evidence/provenance
+6. Operational status
+7. Security/trust boundary
+8. Assignment/history/relation
+9. Negative evidence / unresolved state
+10. Conflict and reconciliation
+
+### Separation rule
+Identity, role, authority, capability, evidence, assignment, status, history, relation and security scope are separate record types. No record type may overwrite another.
+
+### State rule
+Unknown and unverified conditions are stored explicitly. They are not treated as empty fields and are never converted to VERIFIED by inference.
+
+### Evidence
+| ID | Node | Claim | Source | Source Type | Verification Date | Result | Status |
+|---|---|---|---|---|---|---|---|
+| ENGROLE-007 | Engineering record schema | Engineering identity/role/authority/capability/evidence/status/security dimensions are independently addressable | Engineering Role Registry | Project control | 2026-10-03 | Schema recorded | VERIFIED-DESIGN |
+| ENGROLE-008 | Record separation | Engineering record types must not overwrite one another | Project governance | Project control | 2026-10-03 | Separation recorded | VERIFIED-DESIGN |
+| ENGROLE-009 | Negative evidence | Unknown/unverified conditions must be explicit | Project evidence rules | Project control | 2026-10-03 | Negative-state model recorded | VERIFIED-DESIGN |
+| ENGROLE-010 | Conflict handling | Conflicting sources must be preserved and reconciled | Project evidence rules | Project control | 2026-10-03 | Conflict model recorded | VERIFIED-DESIGN |
+
+### Roadmap / protected boundaries
+No Project Roadmap, Contract v2.1 or protected boundary was changed.
