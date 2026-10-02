@@ -1,7 +1,7 @@
 # Network Configuration — Project Database Current State
 
-Date: 2026-10-01
-Status: CURRENT CONTROL BASELINE
+Date: 2026-10-02
+Status: CURRENT CONTROL BASELINE — ROUND 1 CLOSED / ROUND 2 OPEN
 
 ## Canonical model
 Project Database and Central Database are one logical database using one schema. They are not two independently synchronized databases. Project records, evidence, decisions, errors, dependencies, verification, and state changes belong to the same canonical data model and remain portable across workspace/account/repository boundaries.
@@ -40,7 +40,7 @@ Separate EXECUTED, OUTPUT_PRESENT, OUTPUT_VALID, MATCHED, VERIFIED and PASS.
 RUN SUCCESS does not imply OUTPUT VALID, MATCHED, VERIFIED or project completion. If a tool reports success but returns no usable data, record NO_OUTPUT and do not pass the result into Database, Code or another Tool as valid input.
 
 ## Android support policy
-“Android 12 and later” means minimum OS/API 31 and an API 31+ compatibility matrix, not Android 12 alone. Each supported release needs version-specific evidence for relevant API behavior, permissions, manifest rules, WebView, storage/network/background behavior and compatibility constraints.
+Android 12 and later means minimum OS/API 31 and an API 31+ compatibility matrix, not Android 12 alone. Each supported release needs version-specific evidence for relevant API behavior, permissions, manifest rules, WebView, storage/network/background behavior and compatibility constraints.
 
 Current implementation evidence on prasong-me/-Configuration-, branch feat/android-app-v1: minSdk=31, compileSdk=35, targetSdk=35, Java 17, Kotlin 2.0.21, Android WebView host, CI APK packaging path.
 
@@ -70,5 +70,33 @@ READ OLD → MERGE NEW → PRESERVE HISTORY → WRITE AUTHORITATIVE RECORD → R
 
 When newer authoritative repository evidence conflicts with older summaries, retain the historical state and use the newer evidence for Current State.
 
-## Current reconciliation
-MISS-011 Linux runtime is CLOSED / VERIFIED from newer repository evidence. Android source/build path is established in feat/android-app-v1. Android 12 device/emulator runtime remains NOT VERIFIED / BLOCKED for runtime closure. Android research must evolve from Android-12-only notes into a versioned API 31+ compatibility evidence set.
+## Round 1 — closure
+Closed at this round:
+- Project Database/Central Database single-schema reconciliation.
+- Tool Semantic Compatibility baseline.
+- Android build-path reconciliation.
+- Android 12+ requirement corrected to API 31+.
+- Historical MISS-011 Linux runtime state reconciled to CLOSED / VERIFIED.
+
+Closure boundary:
+- This round closes the control/data reconciliation work only.
+- It does not claim Android runtime verification.
+- It does not claim full Android target-evidence completion.
+- It does not reopen the already closed reference/evidence baseline Steps 1A–12.
+
+## Round 2 — current node
+ANDROID API 31+ COMPATIBILITY EVIDENCE
+
+Goal:
+Convert the existing Android-12-only evidence into a versioned API 31+ compatibility set using the existing evidence/database structure.
+
+First unit:
+- inspect existing Android evidence records and current feat/android-app-v1 implementation;
+- identify the exact supported API/version range already evidenced;
+- close only the version-compatibility evidence that can be verified from existing authoritative/project sources;
+- leave physical-device/emulator runtime as NOT VERIFIED until actually executed.
+
+Completion gate:
+SOURCE → MATCH → VERSIONED EVIDENCE → READ-BACK → VERIFY → RECORD → CLOSE
+
+Do not create a second database, second roadmap, or duplicate evidence store.
