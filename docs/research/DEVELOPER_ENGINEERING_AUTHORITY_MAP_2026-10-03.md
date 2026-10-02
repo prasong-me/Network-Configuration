@@ -129,3 +129,35 @@ Purpose
 - FoxyProxy governance/maintainer hierarchy beyond the official organization/repositories is not established here.
 - sing-box individual maintainer roles require separate official-source verification if needed.
 - This map is an evidence layer; it does not change the Project Roadmap or Contract v2.1.
+
+
+## Engineering role classification extension — 2026-10-03
+
+A separate operational role taxonomy has been added:
+- `docs/research/ENGINEERING_ROLE_REGISTRY_2026-10-03.md`
+- Commit: `476f74bf4e7c49499f08179125902b7b982b967e`
+
+The role registry covers authority/governance, software engineering, infrastructure/operations, quality/evidence, and project-domain specialist roles.
+
+It is intentionally separate from this authority map:
+- This map answers **who/which organization is authoritative when primary evidence supports it**.
+- The role registry answers **what engineering capability/role is required to execute and verify a task**.
+- A role category does not assign a person.
+- A contributor/commit author is not automatically an authority.
+- CODEOWNERS is a repository governance signal and may identify file/directory ownership; it does not establish universal platform authority.
+
+New official GitHub evidence:
+- https://docs.github.com/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+- https://docs.github.com/pull-requests/reference/pull-request-reviews
+
+Evidence IDs are recorded in the role registry as ENGROLE-001 through ENGROLE-003.
+
+### Current boundary
+
+Named individual-engineer authority remains OPEN unless an official primary source explicitly establishes:
+1. identity,
+2. role,
+3. scope,
+4. effective/current context.
+
+No person is promoted to engineering authority from search results, commit history, community claims, or tool output alone.
