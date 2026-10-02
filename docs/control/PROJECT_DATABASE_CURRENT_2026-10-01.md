@@ -270,3 +270,31 @@ INTERACTION/EXPORT = OPEN/UNVERIFIED
 PERMISSION/OS ACCEPTANCE = OPEN/UNVERIFIED
 
 No closure promotion is made until the replacement run reaches a terminal result with the required runtime assertions.
+
+
+## AI Command-Following — 300-Round Automated Execution
+
+### Authorization / current node
+- User authorization: APPROVED for 300 automated rounds.
+- Node: AI-CF-300.
+- Scope: command following only; no quality/intelligence scoring.
+- PASS: every explicit command requirement obeyed.
+- FAIL: at least one explicit command requirement not obeyed.
+- Difficulty schedule: 1-50 single constraints; 51-100 multiple constraints; 101-150 ordered constraints; 151-200 prohibitions/stop conditions; 201-250 nested/preserved constraints; 251-300 complex combined constraints.
+
+### Execution evidence
+- Runner/external execution: Browser Use on Duck.ai public chat.
+- Active run: 69caf88c-5c8c-4e57-a181-401c7c494c9e.
+- Last observed execution state: non-terminal / unknown.
+- Therefore 300-round completion is NOT VERIFIED and no final rate is claimed.
+- Execution registry: docs/control/AI_COMMAND_FOLLOWING_300_EXECUTION_2026-10-03.md
+- Registry commit: 994d54633a9a7c9a601322f0ad270eb19ec2014a
+
+### Evidence Registry
+| ID | Node | Claim | Source | Source Type | Verification Date | Result | Status |
+|---|---|---|---|---|---|---|---|
+| AICF-300-001 | AI-CF-300 | User approved an automated 300-round command-following test | Current project instruction | User authorization | 2026-10-03 | 300 rounds authorized | VERIFIED-AUTHORIZATION |
+| AICF-300-002 | AI-CF-300 | Automated external execution was started | Browser Use run 69caf88c-5c8c-4e57-a181-401c7c494c9e | External runtime execution | 2026-10-03 | Non-terminal at last check | OPEN-RUNTIME |
+
+### Closure gate
+The 300-round node remains OPEN until the external execution reaches a terminal state, all completed rounds are recorded, results are read back, PASS/FAIL is calculated from exact command compliance, and the repository state is verified.
