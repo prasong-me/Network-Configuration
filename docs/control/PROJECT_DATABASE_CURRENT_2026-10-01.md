@@ -395,3 +395,41 @@ The registry provides a machine-usable role vocabulary across:
 - Named individual engineer authority: OPEN
 - Workspace-specific role assignment: OPEN until repository/organization evidence is read
 - Project Roadmap: UNCHANGED
+
+## Engineering Verification / Readiness Layers — 2026-10-03
+
+### Node
+ENGINEERING AUTHORITY + ROLE + READINESS CLASSIFICATION
+
+### Registry update
+- `docs/research/ENGINEERING_ROLE_REGISTRY_2026-10-03.md`
+- Commit: `a0bada35189a2a0c1b6c8cbf1d3186aef59b4c94`
+- Read-back blob SHA: `862627e52d6736cfff11165012ee621801d9b2ce`
+
+### Required layers
+- V0 UNVERIFIED
+- V1 SOURCE-IDENTIFIED
+- V2 VERIFIED-SOURCE
+- V3 VERIFIED-ROLE
+- V4 IMPLEMENTATION-READY
+- V5 VERIFIED-IMPLEMENTATION
+- V6 RELEASE-READY
+- V7 CLOSED
+
+### Control
+V2 VERIFIED-SOURCE does NOT mean implementation-ready. A record must satisfy role/authority, normative source, target/version, dependency, contract, validation and blocker gates before V4.
+
+Named engineer authority remains OPEN unless primary evidence establishes identity + role + scope + current context.
+
+### Current classification
+The current 10 authority domains in the engineering map are classified V2 VERIFIED-SOURCE:
+GitHub, Apple mobileconfig, Android, WireGuard, sing-box, Shadowrocket developer identity, FoxyProxy, DNS/IETF, Next.js/Vercel, OpenAI/MCP.
+
+This classification does not promote any domain to READY and does not alter the Project Roadmap.
+
+### New Evidence
+| ID | Node | Claim | Source | Source Type | Verification Date | Result | Status |
+|---|---|---|---|---|---|---|---|
+| ENGROLE-004 | Verification tiers | Workspace needs independent verification/readiness layers | Engineering Role Registry | Project control | 2026-10-03 | V0-V7 recorded | VERIFIED-DESIGN |
+| ENGROLE-005 | Promotion control | Weak evidence or tool/test success cannot independently promote a record to READY/CLOSED | Existing project controls | Project control | 2026-10-03 | Promotion rules recorded | VERIFIED-DESIGN |
+| ENGROLE-006 | Authority classification | Current authority domains are V2 VERIFIED-SOURCE; individual roles remain open | Authority Map + official sources | Evidence synthesis | 2026-10-03 | Classification recorded | VERIFIED-DESIGN |
