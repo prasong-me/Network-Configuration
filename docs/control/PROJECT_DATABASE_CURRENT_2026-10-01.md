@@ -182,3 +182,38 @@ OpenAI documentation proves product-level behavior only. It does NOT prove that 
 
 ### Reconciliation result
 Official OpenAI source evidence for the previously missing product-level limit/permission model has been added. Third-party connector quotas and current runtime availability remain separate OPEN/OBSERVED evidence classes and must not be inferred from OpenAI documentation.
+
+
+## Android API 31 runtime execution attempt — 2026-10-03
+
+### Implementation/CI changes in related Android source repository
+- Existing workflow `.github/workflows/android.yml` was extended rather than creating a parallel workflow.
+- Commit `f4d7a88463d95c676c74f3890c0e8e18489d3771`: added an API 31 emulator runtime gate.
+- Commit `36fd920a3e5badf52ae5852d69a99d7f29033c84`: corrected emulator binary PATH and bounded emulator startup.
+- Commit `932491340ca261ac5f2414a1e34959a230dc77d7`: added explicit startup time bounds and software acceleration fallback.
+- Commit `ab26cbda433393f4cb6d644b11c4750883f47baa`: replaced manual emulator startup with the existing workflow's runtime job using `reactivecircus/android-emulator-runner@v2`.
+
+### Evidence and error lifecycle
+- Run #28 / `37066978718`: build succeeded; runtime job failed before launch because the `emulator` executable was not on PATH. Root cause verified from job log: `emulator: command not found`. This was corrected in `36fd920...`.
+- Run #31 / `37067369185`: build succeeded; manual emulator startup reached the runtime start step but did not produce a terminal runtime result. This attempt is retained as historical execution evidence, not PASS.
+- Run #33 / `37068015953`: build succeeded; manual emulator startup remained non-terminal, so it was not promoted to runtime PASS.
+- Current Run #35 / `37068549440`: build job succeeded; runtime job is still in progress at `Run API 31 emulator`. No runtime result is promoted until the job reaches a terminal state and the required WebView/runtime assertions are observed.
+
+### Current Android evidence state
+- SOURCE/COMPATIBILITY: CLOSED for the inspected wrapper surface.
+- BUILD/PACKAGE: VERIFIED by CI.
+- API 31 emulator launch: OPEN / UNVERIFIED.
+- WebView asset load: OPEN / UNVERIFIED.
+- Web app interaction/export: OPEN / UNVERIFIED.
+- Permission/runtime behavior: OPEN / UNVERIFIED.
+- OS acceptance/runtime interoperability: OPEN / UNVERIFIED.
+
+### Evidence Registry additions
+| ID | Node | Claim | Source | Source Type | Verification Date | Result | Status |
+|---|---|---|---|---|---|---|---|
+| ANDROID-CI-031-001 | Android API 31 runtime | API 31 runtime gate was added to the existing Android workflow | `-Configuration-/.github/workflows/android.yml` @ `f4d7a88463d95c676c74f3890c0e8e18489d3771` | Repository / CI configuration | 2026-10-03 | Runtime gate present | VERIFIED-CONFIG |
+| ANDROID-CI-031-002 | Android API 31 runtime | First runtime attempt failed because emulator binary was not on PATH | GitHub Actions Run `37066978718`, job `111037947989` | CI execution log | 2026-10-03 | Root cause observed and corrected | VERIFIED-ERROR |
+| ANDROID-CI-031-003 | Android API 31 runtime | Managed emulator runner is now the current runtime path | `-Configuration-` commit `ab26cbda433393f4cb6d644b11c4750883f47baa` | Repository / CI configuration | 2026-10-03 | Current run executing | OPEN-RUNTIME |
+
+### Continuation rule
+Do not mark Android runtime VERIFIED until Run #35 (or a subsequent replacement run) reaches a terminal result with successful API 31 launch plus WebView UI evidence. The project remains OPEN under the existing Roadmap.
