@@ -217,3 +217,56 @@ Official OpenAI source evidence for the previously missing product-level limit/p
 
 ### Continuation rule
 Do not mark Android runtime VERIFIED until Run #35 (or a subsequent replacement run) reaches a terminal result with successful API 31 launch plus WebView UI evidence. The project remains OPEN under the existing Roadmap.
+
+## Android API 31 runtime error lifecycle — 2026-10-03 continuation
+
+### ERROR
+- Node: ANDROID API 31+ COMPATIBILITY EVIDENCE / runtime gate
+- Run: 37068549440 / Android App #35
+- Job: 111042893654 / runtime-api31
+- Failed step: Run API 31 emulator
+- Terminal result: /usr/bin/sh exited with code 137
+- Verified interpretation: exit code 137 = process terminated by SIGKILL (9). Public job evidence identifies the immediate failure as the shell/emulator workload being killed, not the configured workflow timeout.
+
+### ROOT CAUSE
+- The API 31 emulator workload exceeded the available runner/container memory envelope during the runtime step.
+- This is an execution-resource failure, not evidence that the Android application itself failed to launch or that WebView compatibility failed.
+- Runtime correctness therefore remains UNKNOWN/UNVERIFIED.
+
+### SIDE EFFECT
+- Build job 111042261462 succeeded.
+- APK build/package evidence remains valid.
+- Runtime launch, WebView asset load, interaction/export, permission behavior and OS acceptance remain OPEN/UNVERIFIED.
+
+### FIX
+- Existing workflow was modified in prasong-me/-Configuration- rather than creating a parallel workflow.
+- Fix commit: af8a16848fafc03cdce92fb401276bb09839cb6f
+- Emulator resource bounds added: cores=2, ram-size=1536M, heap-size=256M.
+- Software-rendering mode made explicit with -gpu swiftshader_indirect.
+- Runtime assertions were tightened to verify process, focused Activity, window focus and android.webkit.WebView presence rather than requiring page text that may not be exposed by UI automation.
+- Runtime evidence capture expanded to include WebView diagnostics and logcat.
+
+### VERIFICATION STATE
+- Immediate read-back of .github/workflows/android.yml: MATCHED to fix commit.
+- Replacement workflow run: 37070390629 / Android App #36
+- Head SHA: af8a16848fafc03cdce92fb401276bb09839cb6f
+- At last read: status in_progress; no runtime PASS recorded.
+- Therefore the fix is READ-BACK VERIFIED, but runtime result remains OPEN/UNVERIFIED.
+
+### Evidence Registry
+| ID | Node | Claim | Source | Source Type | Verification Date | Result | Status |
+|---|---|---|---|---|---|---|---|
+| ANDROID-CI-031-004 | Android API 31 runtime | Run #35 runtime step terminated with shell exit code 137 / SIGKILL | GitHub Actions Run 37068549440, Job 111042893654 | CI execution evidence | 2026-10-03 | Resource-kill failure observed | VERIFIED-ERROR |
+| ANDROID-CI-031-005 | Android API 31 runtime | Resource-bounded emulator fix committed to existing workflow | -Configuration- commit af8a16848fafc03cdce92fb401276bb09839cb6f | Repository / CI configuration | 2026-10-03 | Read-back matched | VERIFIED-CONFIG |
+| ANDROID-CI-031-006 | Android API 31 runtime | Replacement runtime verification is executing against the fixed workflow | GitHub Actions Run 37070390629 | CI execution | 2026-10-03 | In progress | OPEN-RUNTIME |
+
+### Current state after fix
+SOURCE/COMPATIBILITY = CLOSED
+BUILD/PACKAGE = VERIFIED
+RUNTIME RESOURCE FIX = READ-BACK VERIFIED
+API 31 EMULATOR RUNTIME = OPEN/UNVERIFIED
+WEBVIEW UI = OPEN/UNVERIFIED
+INTERACTION/EXPORT = OPEN/UNVERIFIED
+PERMISSION/OS ACCEPTANCE = OPEN/UNVERIFIED
+
+No closure promotion is made until the replacement run reaches a terminal result with the required runtime assertions.
