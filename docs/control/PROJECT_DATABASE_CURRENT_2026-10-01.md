@@ -298,3 +298,32 @@ No closure promotion is made until the replacement run reaches a terminal result
 
 ### Closure gate
 The 300-round node remains OPEN until the external execution reaches a terminal state, all completed rounds are recorded, results are read back, PASS/FAIL is calculated from exact command compliance, and the repository state is verified.
+
+
+## Developer / Engineering Authority Evidence — 2026-10-03
+
+New evidence map:
+- File: docs/research/DEVELOPER_ENGINEERING_AUTHORITY_MAP_2026-10-03.md
+- Commit: 5cc920be3803cad4caf8742156364b005ffdbd27
+
+Scope covered in ordered layers:
+1. GitHub
+2. Apple Configuration Profiles / mobileconfig
+3. Android VpnService / WebView
+4. WireGuard
+5. sing-box
+6. Shadowrocket
+7. FoxyProxy
+8. IETF DNS / proxy / routing standards
+9. Next.js / Vercel
+10. OpenAI / ChatGPT Apps / MCP
+
+Result:
+- Organization/project/standards authority evidence was found for the listed components from primary official sources.
+- Individual engineer authority was not inferred where primary-source evidence did not establish the role.
+- Shadowrocket developer identity is supported by the Apple App Store listing as Shadow Launch Technology Limited.
+- This evidence layer does not modify Project Roadmap, Contract v2.1, or protected boundaries.
+- Additional individual-maintainer/governance evidence remains OPEN where the primary source does not establish it.
+
+Evidence Registry:
+- DEVENG-001 through DEVENG-011 are recorded in the new evidence map with ID, Node, Claim, Source, Source Type, Verification Date, Result, Status.
