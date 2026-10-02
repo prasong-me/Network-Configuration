@@ -351,3 +351,47 @@ Control conclusion:
 - User authorization to use tools is one permission layer; it does not erase platform/connector/runtime/rate-limit boundaries.
 - Tool execution must remain separated from output validation and verification.
 - The project's existing execution contract remains authoritative and unchanged.
+
+
+## Engineering Role Registry — 2026-10-03
+
+### Node
+ENGINEERING ROLE / AUTHORITY CLASSIFICATION
+
+### New artifact
+- `docs/research/ENGINEERING_ROLE_REGISTRY_2026-10-03.md`
+- Commit: `476f74bf4e7c49499f08179125902b7b982b967e`
+
+### Authority map linkage
+- Updated `docs/research/DEVELOPER_ENGINEERING_AUTHORITY_MAP_2026-10-03.md`
+- Commit: `4a3a1d183c6c09dc6d2b2b93e45807cbb737b9e0`
+- Read-back blob SHA: `9c8eae294a600260f278b98e02b14db45973a34c`
+
+### Coverage
+The registry provides a machine-usable role vocabulary across:
+- authority/governance;
+- software engineering;
+- infrastructure/operations;
+- quality/evidence;
+- Apple/Android/DNS/VPN/Proxy/Routing/Web/AI/Workspace domain specialists.
+
+### Control boundary
+- Role taxonomy does not assign named people.
+- Platform/project authority remains evidence-bound to primary sources.
+- CODEOWNERS is treated as repository ownership/review evidence, not universal engineering authority.
+- Individual engineer authority remains OPEN unless primary evidence establishes identity, role, scope and current context.
+- No roadmap, Contract v2.1 or protected boundary was changed.
+
+### Evidence Registry
+| ID | Node | Claim | Source | Source Type | Verification Date | Result | Status |
+|---|---|---|---|---|---|---|---|
+| ENGROLE-001 | Engineering role taxonomy | Operational engineering-role taxonomy recorded for workspace routing without assigning people | `docs/research/ENGINEERING_ROLE_REGISTRY_2026-10-03.md` | Project control | 2026-10-03 | Taxonomy recorded | VERIFIED-DESIGN |
+| ENGROLE-002 | Code ownership | GitHub CODEOWNERS identifies people/teams responsible for specific files/directories and can trigger review requests | https://docs.github.com/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners | Official GitHub | 2026-10-03 | Code-owner mechanism documented | VERIFIED-SOURCE |
+| ENGROLE-003 | Pull-request review | GitHub documents pull-request reviews and code-owner review behavior | https://docs.github.com/pull-requests/reference/pull-request-reviews | Official GitHub | 2026-10-03 | Review mechanism documented | VERIFIED-SOURCE |
+
+### State
+- Engineering role taxonomy: VERIFIED-DESIGN
+- Official GitHub code-owner/review evidence: VERIFIED-SOURCE
+- Named individual engineer authority: OPEN
+- Workspace-specific role assignment: OPEN until repository/organization evidence is read
+- Project Roadmap: UNCHANGED
