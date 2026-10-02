@@ -70,7 +70,7 @@ Therefore:
 - Historical evidence artifact: FOUND and retained; it must not be recreated or replaced with a new summary.
 - Source/build evidence: CLOSED at SOURCE/BUILD level.
 - Android runtime evidence: still OPEN/UNVERIFIED.
-- API 31+ version-specific compatibility matrix: still OPEN.
+- API 31+ version-specific compatibility matrix: now CLOSED at SOURCE/COMPATIBILITY level for the inspected wrapper surface; runtime remains OPEN.
 - Physical-device/emulator runtime: still OPEN/BLOCKED where required.
 - OS acceptance/runtime interoperability: still OPEN.
 - Permission/runtime behavior, WebView compatibility, storage/network/background behavior, security/limitations: remain open only where project-specific verification is required and not already proven by the stored evidence.
@@ -127,9 +127,24 @@ ALL REQUIRED EVIDENCE CLASSES → MATCH → VERIFY → RECORD → READ-BACK → 
 - Structural artifact inspection confirms the APK was produced and contains the expected packaged web payload.
 - This is artifact/build evidence only; it does not replace device/emulator runtime evidence.
 
+### New API 31+ compatibility evidence
+- Evidence record: docs/research/ANDROID_API31_COMPATIBILITY_EVIDENCE_2026-10-03.md
+- Commit: f086ecec1563fd72de5f5abd495762bf2f523cff
+- Official sources verified on 2026-10-03:
+  - Android 12/API 31 behavior changes
+  - WebView API reference
+  - WebSettings API reference
+  - OnBackInvokedDispatcher API reference
+- Source-level findings:
+  - Android 12/API 31 baseline is documented.
+  - Existing manifest explicitly sets android:exported=true for the launcher Activity.
+  - Existing wrapper uses documented WebView/WebSettings APIs.
+  - API 33 OnBackInvokedDispatcher usage is guarded by Build.VERSION.SDK_INT >= 33; API <33 uses the existing onBackPressed path.
+- Result: API 31+ SOURCE/COMPATIBILITY evidence CLOSED for the inspected wrapper surface.
+- Result: API 31 runtime launch/WebView/interaction/export/permission behavior remains OPEN/UNVERIFIED.
+
 ### Continuation state
 The project remains OPEN under the existing roadmap. The Android runtime/API 31+ evidence gate is not closed, and no evidence class is promoted to PASS without the corresponding verification layer. No historical evidence was deleted or replaced.
-
 
 ## Official OpenAI Tool/App/Limit Evidence Reconciliation — 2026-10-03
 
