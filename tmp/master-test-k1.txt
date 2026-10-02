@@ -1,0 +1,2 @@
+MASTER TEST K1 FILE
+AI direct GitHub contents API probe
