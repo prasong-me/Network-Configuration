@@ -98,20 +98,34 @@ A pass at one layer is not a pass at a later layer.
 ## Completion gate
 ALL REQUIRED EVIDENCE CLASSES → MATCH → VERIFY → RECORD → READ-BACK → CLOSE
 
-
 ## Autonomous execution reconciliation — 2026-10-03
 
 ### Independent CI error handled during project continuation
 - Observed historical GitHub Actions failure: Apple Style Guide run #328 (workflow run 36895047204), job 110479811911.
-- Root cause: `docs/research/OFFICIAL_SOURCE_SNAPSHOT.md` contained a lowercase standalone `ios`, which violated the repository Apple-style validator requiring `iOS`.
-- Correction committed on `feat/android-app-v1`: commit `684e49e57fbb858f3a5e79e7863dd734208f6012`.
-- Immediate read-back verified the corrected file has 0 standalone lowercase `ios` matches and 13 `iOS` matches.
-- Verification status: correction READ-BACK = PASS; fresh workflow result for the correction commit is not yet available through the current GitHub workflow-run query surface, so this is not promoted to CI PASS.
+- Root cause: docs/research/OFFICIAL_SOURCE_SNAPSHOT.md contained a lowercase standalone ios, which violated the repository Apple-style validator requiring iOS.
+- Correction committed on feat/android-app-v1: commit 684e49e57fbb858f3a5e79e7863dd734208f6012.
+- Immediate read-back verified the corrected file has 0 standalone lowercase ios matches and 13 iOS matches.
+- Previous status was READ-BACK PASS pending fresh CI.
 
-### Current Android CI evidence
-- Branch HEAD at the time of reconciliation: `f096ae99eb5a6046dc0c557d163460f005046a1b`.
-- Android App workflow run #19 (run 36895047148) completed SUCCESS for that branch state.
-- CI success establishes build/package evidence only; Android runtime, OS acceptance, and version-specific API 31+ compatibility remain OPEN/UNVERIFIED.
+### Fresh CI verification for correction commit
+- Correction commit: 684e49e57fbb858f3a5e79e7863dd734208f6012
+- Fresh workflow results for that commit:
+  - Apple Style Guide & Grammar Checker — run 346 / 37057619376 — SUCCESS
+  - Verify Configuration Platform — run 469 / 37057619787 — SUCCESS
+  - CI — run 690 / 37057619698 — SUCCESS
+  - Android App — run 21 / 37057619693 — SUCCESS
+- Android App build job: 111006096714 — SUCCESS.
+- Android App build steps included SDK setup, web bundle build, asset packaging, Gradle installation, debug APK build, and APK upload.
+- This upgrades the corrected documentation from READ-BACK-only to CI-VERIFIED for the available workflows.
+- Android CI success still establishes build/package evidence only; it does not establish physical runtime, OS acceptance, or complete API 31+ compatibility.
+
+### APK artifact inspection
+- Android App run 21 artifact: configuration-android-debug
+- Artifact ID: 11179431854
+- SHA-256: 4735bd3591c1a0d27794555d105556fe055777a509b5ec177a78cb1d76eaabf
+- Artifact contains app-debug.apk with AndroidManifest.xml and packaged web assets under assets/web/.
+- Structural artifact inspection confirms the APK was produced and contains the expected packaged web payload.
+- This is artifact/build evidence only; it does not replace device/emulator runtime evidence.
 
 ### Continuation state
-The project remains OPEN under the existing roadmap. The Android runtime/API 31+ evidence gate is not closed, and the corrected Apple-style documentation requires a fresh CI result before being recorded as CI-verified. No historical evidence was deleted or replaced.
+The project remains OPEN under the existing roadmap. The Android runtime/API 31+ evidence gate is not closed, and no evidence class is promoted to PASS without the corresponding verification layer. No historical evidence was deleted or replaced.
