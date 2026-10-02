@@ -221,3 +221,136 @@ The domains above are NOT marked READY. V2 means source claims are verified. Imp
 | ENGROLE-004 | Verification tiers | Workspace needs independent tiers from unverified source through closure | Project control + execution contract | Project control | 2026-10-03 | Tier model recorded | VERIFIED-DESIGN |
 | ENGROLE-005 | Promotion control | Tool success, URL-only evidence, contributor status and test execution cannot independently promote a record to READY/CLOSED | Existing project control baseline | Project control | 2026-10-03 | Promotion rules recorded | VERIFIED-DESIGN |
 | ENGROLE-006 | Authority classification | Current 10 authority domains are V2 VERIFIED-SOURCE while named individual roles remain open unless primary evidence establishes them | Authority map + official sources | Evidence synthesis | 2026-10-03 | Classified without overclaiming | VERIFIED-DESIGN |
+
+## Additional engineering record dimensions
+
+To make the registry usable by the Workspace without mixing evidence types, each named engineer/team/organization record should be capable of storing these independent dimensions.
+
+### Identity
+- ENTITY_ID
+- ENTITY_TYPE: PERSON | TEAM | ORGANIZATION | PROJECT | MAINTAINER_GROUP
+- DISPLAY_NAME
+- OFFICIAL_IDENTIFIER
+- OFFICIAL_PROFILE_URL
+- SOURCE_ID
+
+### Role
+- ROLE_ID
+- ROLE_NAME
+- ROLE_SCOPE
+- COMPONENT_SCOPE
+- REPOSITORY_SCOPE
+- PLATFORM_SCOPE
+- START_DATE if officially documented
+- END_DATE if officially documented
+- CURRENT_STATUS
+
+### Authority
+- AUTHORITY_TYPE: PLATFORM | PROJECT | REPOSITORY | PATH | STANDARD | REVIEW | RELEASE | OPERATIONAL
+- AUTHORITY_LEVEL
+- AUTHORITY_SCOPE
+- AUTHORITY_SOURCE
+- AUTHORITY_EVIDENCE_ID
+- LIMITATIONS
+
+### Technical responsibility
+- COMPONENT
+- CAPABILITY
+- API_OR_SPEC
+- TARGET
+- VERSION
+- DEPENDENCY
+- PROTECTED_BOUNDARY
+- REQUIRED_REVIEW_ROLE
+
+### Evidence and provenance
+- EVIDENCE_ID
+- SOURCE_TYPE
+- SOURCE_URL_OR_REFERENCE
+- SOURCE_VERSION
+- PUBLISHED_AT if known
+- RETRIEVED_AT
+- VERIFIED_AT
+- VERIFICATION_METHOD
+- CLAIM
+- RESULT
+- STATUS
+- SUPERSEDES / SUPERSEDED_BY
+- PROVENANCE_RECORD
+
+### Operational status
+- SOURCE_STATUS
+- ROLE_STATUS
+- NORMATIVE_STATUS
+- TARGET_VERSION_STATUS
+- DEPENDENCY_STATUS
+- IMPLEMENTATION_STATUS
+- VALIDATION_STATUS
+- RELEASE_STATUS
+- CLOSURE_STATUS
+
+### Security / trust boundary
+- TRUST_LEVEL
+- AUTHORIZATION_SCOPE
+- CREDENTIAL_REQUIRED: YES | NO | UNKNOWN
+- SENSITIVE_DATA_ACCESS: YES | NO | UNKNOWN
+- WRITE_ACCESS: YES | NO | UNKNOWN
+- RELEASE_ACCESS: YES | NO | UNKNOWN
+
+These fields are a data model for evidence-bound records. They do not create authority merely by being populated.
+
+## Record separation rules
+
+The Workspace must keep these as separate record types:
+
+1. ENGINEER_IDENTITY
+2. ENGINEER_ROLE
+3. ENGINEER_AUTHORITY
+4. ENGINEER_CAPABILITY
+5. ENGINEER_EVIDENCE
+6. ENGINEER_ASSIGNMENT
+7. ENGINEER_STATUS
+8. ENGINEER_HISTORY
+9. ENGINEER_RELATION
+10. ENGINEER_SECURITY_SCOPE
+
+One record must not overwrite another record type.
+
+Example relationship:
+
+ENTITY → ROLE → AUTHORITY → COMPONENT → TARGET/VERSION → EVIDENCE → VERIFICATION → STATUS
+
+## Negative evidence / unresolved data
+
+The Workspace should also record what is NOT established:
+
+- identity not verified;
+- role not verified;
+- authority scope unknown;
+- current employment/affiliation not established;
+- maintainer hierarchy not published;
+- public API/specification not available;
+- target/version compatibility not verified;
+- dependency ownership unknown.
+
+These are explicit states, not empty fields and not assumptions.
+
+## Conflict handling
+
+When two sources disagree:
+- preserve both source records;
+- create a CONFLICT record;
+- identify the exact conflicting claim/field;
+- record source authority and dates;
+- do not silently select one source;
+- create a reconciliation record;
+- only promote the resolved claim when the reconciliation has adequate evidence.
+
+## Evidence Registry extension
+
+| ID | Node | Claim | Source | Source Type | Verification Date | Result | Status |
+|---|---|---|---|---|---|---|---|
+| ENGROLE-007 | Engineering record schema | Identity, role, authority, capability, evidence, status and security scope must remain independently addressable | Project control | Project control | 2026-10-03 | Schema dimensions recorded | VERIFIED-DESIGN |
+| ENGROLE-008 | Record separation | Engineering identity, role, authority, evidence and status must not overwrite one another | Project governance | Project control | 2026-10-03 | Separation rule recorded | VERIFIED-DESIGN |
+| ENGROLE-009 | Negative evidence | Unknown/unverified authority and role conditions must be represented explicitly rather than inferred | Project evidence rules | Project control | 2026-10-03 | Negative-state model recorded | VERIFIED-DESIGN |
+| ENGROLE-010 | Conflict handling | Conflicting source claims must be preserved and reconciled rather than silently overwritten | Project evidence rules | Project control | 2026-10-03 | Conflict rule recorded | VERIFIED-DESIGN |
