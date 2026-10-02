@@ -146,3 +146,78 @@ No named engineer is promoted to AUTHORITATIVE solely because the person:
 - is associated with a tool.
 
 A named role requires a primary-source record with scope and verification date.
+
+## Verification / Readiness tier model
+
+The Workspace must separate what is known, what is verified, and what is ready for implementation. These states must never be collapsed.
+
+### Tier V0 — UNVERIFIED
+Search result, community statement, inference, or unverified attribution. Research lead only. MUST NOT be normative implementation authority.
+
+### Tier V1 — SOURCE-IDENTIFIED
+A primary source has been located and identity/scope is known, but the specific claim has not yet been fully checked. Research routing only.
+
+### Tier V2 — VERIFIED-SOURCE
+Primary source inspected and the specific claim directly supported. Source type, verification date, scope and result recorded. May be used as evidence.
+
+### Tier V3 — VERIFIED-ROLE
+A specific person/team/organization has a directly supported role. Identity + role + scope + effective context established. May be used for responsibility routing.
+
+### Tier V4 — IMPLEMENTATION-READY
+Required authority/role evidence exists; applicable normative specification is verified; target/version is identified; dependencies and protected boundaries are checked; required contract/evidence records exist; no unresolved blocker prevents the intended implementation.
+
+### Tier V5 — VERIFIED-IMPLEMENTATION
+V4 was executed; output passed required validation layers; target/version/evidence match was verified; repository artifact and evidence were recorded.
+
+### Tier V6 — RELEASE-READY
+V5 is complete; release artifact, regression/compatibility evidence, provenance and release controls are verified.
+
+### Tier V7 — CLOSED
+Verify → Record → Update Database → Reconcile → Repository → Verify Repository → Closure has completed and closure evidence exists.
+
+### Promotion rules
+
+Allowed: V0 → V1 → V2 → V3 → V4 → V5 → V6 → V7.
+
+A tier may be skipped only when its condition is genuinely not applicable and the evidence explicitly explains why.
+
+Forbidden:
+- V0 → READY
+- V1 → READY
+- tool success → READY
+- contributor/commit → VERIFIED-ROLE
+- URL-only reference → VERIFIED-SOURCE
+- generated code → VERIFIED-IMPLEMENTATION
+- test execution success → CLOSED
+
+### Independent status axes
+
+Workspace records should maintain:
+SOURCE_STATUS, ROLE_STATUS, NORMATIVE_STATUS, TARGET_VERSION_STATUS, DEPENDENCY_STATUS, IMPLEMENTATION_STATUS, VALIDATION_STATUS, RELEASE_STATUS, CLOSURE_STATUS.
+
+A strong result on one axis must not promote the whole record.
+
+## Current engineering authority classification
+
+| Domain | Authority/Source | Current tier | Usable for | Open |
+|---|---|---|---|---|
+| GitHub | Official GitHub documentation/platform | V2 VERIFIED-SOURCE | Repository governance, CODEOWNERS/review controls | Named engineer authority |
+| Apple mobileconfig | Apple Configuration Profile Reference | V2 VERIFIED-SOURCE | Configuration Profile contract/reference | Named Apple engineer authority |
+| Android | Official Android API documentation | V2 VERIFIED-SOURCE | VpnService/WebView API constraints | Named Android engineer authority |
+| WireGuard | Official WireGuard project documentation | V2 VERIFIED-SOURCE | Protocol/repository reference | Individual maintainer-role evidence |
+| sing-box | Official SagerNet/sing-box documentation/repository | V2 VERIFIED-SOURCE | Configuration/platform reference | Current named role hierarchy |
+| Shadowrocket | Apple App Store developer listing | V2 VERIFIED-SOURCE | Developer identity | Public API/spec authority and named engineer roles |
+| FoxyProxy | Official project GitHub organization/repositories | V2 VERIFIED-SOURCE | Project/repository reference | Maintainer hierarchy |
+| DNS/IETF | IETF RFCs | V2 VERIFIED-SOURCE | Normative DNS/proxy standards | Individual engineering authority |
+| Next.js/Vercel | Official Next.js/Vercel documentation | V2 VERIFIED-SOURCE | Framework/platform reference | Named individual role |
+| OpenAI/MCP | Official OpenAI documentation | V2 VERIFIED-SOURCE | ChatGPT/MCP platform behavior | Named individual engineer authority |
+
+The domains above are NOT marked READY. V2 means source claims are verified. Implementation readiness requires task-specific target/version, dependency, contract and evidence gates.
+
+## Evidence Registry extension
+
+| ID | Node | Claim | Source | Source Type | Verification Date | Result | Status |
+|---|---|---|---|---|---|---|---|
+| ENGROLE-004 | Verification tiers | Workspace needs independent tiers from unverified source through closure | Project control + execution contract | Project control | 2026-10-03 | Tier model recorded | VERIFIED-DESIGN |
+| ENGROLE-005 | Promotion control | Tool success, URL-only evidence, contributor status and test execution cannot independently promote a record to READY/CLOSED | Existing project control baseline | Project control | 2026-10-03 | Promotion rules recorded | VERIFIED-DESIGN |
+| ENGROLE-006 | Authority classification | Current 10 authority domains are V2 VERIFIED-SOURCE while named individual roles remain open unless primary evidence establishes them | Authority map + official sources | Evidence synthesis | 2026-10-03 | Classified without overclaiming | VERIFIED-DESIGN |
