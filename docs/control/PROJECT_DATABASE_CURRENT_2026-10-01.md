@@ -472,3 +472,41 @@ Unknown and unverified conditions are stored explicitly. They are not treated as
 
 ### Roadmap / protected boundaries
 No Project Roadmap, Contract v2.1 or protected boundary was changed.
+
+## Safe Development Evidence Baseline — 2026-10-03
+
+### Node
+SAFE DEVELOPMENT / SECURITY / RELEASE EVIDENCE COLLECTION
+
+### Artifact
+- `docs/research/SAFE_DEVELOPMENT_EVIDENCE_BASELINE_2026-10-03.md`
+- Commit: `75160c6a9586306da58fcb43ff5cfbeba08937e1`
+
+### Scope recorded
+Core correctness; Apple; Android; DNS; VPN; Proxy; Routing/Rules; Web App; Serialization; Artifact integrity; CI/CD; Supply Chain; Secrets; Privacy; Diagnostics; Verification/Readiness; Release controls.
+
+### Current state
+- Existing verified source and implementation evidence was consolidated without overwriting historical evidence.
+- Android API 31 runtime remains OPEN/UNVERIFIED.
+- Release-stage and project-specific security verification remains separate from source-level evidence.
+- No component is promoted to READY merely because source documentation or CI execution exists.
+
+### External research limitation
+A broad official-source search returned substantial Apple/IETF evidence. Subsequent targeted searches encountered HTTP 429 rate limiting. The limitation is recorded explicitly; missing fresh evidence remains OPEN rather than inferred.
+
+### Evidence Registry
+| ID | Node | Claim | Source | Source Type | Verification Date | Result | Status |
+|---|---|---|---|---|---|---|---|
+| SAFEDEV-001 | Safe development baseline | Project requires evidence layers from source through closure | Existing project control / readiness registry | Project control | 2026-10-03 | Baseline recorded | VERIFIED-DESIGN |
+| SAFEDEV-002 | Apple safety | Apple target capabilities must follow documented keys and availability | Apple Configuration Profile Reference / NetworkExtension | Official Apple | 2026-10-03 | Source evidence available | VERIFIED-SOURCE |
+| SAFEDEV-003 | Android safety | Android networking/VPN/WebView/management capabilities are API/role/version bounded | Official Android documentation + stored project evidence | Official Android / Project evidence | 2026-10-03 | Boundaries recorded | VERIFIED-SOURCE |
+| SAFEDEV-004 | DNS safety | DNS behavior must preserve standards semantics and fail closed on unsupported target mapping | IETF evidence + project DNS tests | Standards / Project evidence | 2026-10-03 | Scope recorded | VERIFIED-SOURCE |
+| SAFEDEV-005 | Tool safety | Tool execution and output verification remain separate | Tool Semantic Compatibility Baseline / Tool Control Evidence | Project control | 2026-10-03 | Control verified | VERIFIED-DESIGN |
+| SAFEDEV-006 | Android runtime gate | API 31 runtime remains open after recorded resource-kill failure and non-terminal replacement run | GitHub Actions evidence | CI execution evidence | 2026-10-03 | Runtime not verified | OPEN-RUNTIME |
+| SAFEDEV-007 | Artifact safety | APK structural inspection proves artifact content, not runtime acceptance | CI artifact evidence | CI/artifact evidence | 2026-10-03 | Boundary recorded | VERIFIED-SOURCE |
+| SAFEDEV-008 | Supply-chain safety | CI permissions, OIDC, provenance and least privilege are release controls | GitHub/tool-control evidence | Official GitHub / Project control | 2026-10-03 | Control scope recorded | VERIFIED-SOURCE |
+| SAFEDEV-009 | Readiness | V2 source verification cannot independently promote a component to V4 | Engineering Role Registry | Project control | 2026-10-03 | Promotion rule recorded | VERIFIED-DESIGN |
+| SAFEDEV-010 | Research limitation | Rate-limited searches must remain explicit rather than inferred | Current execution record | Runtime evidence | 2026-10-03 | Limitation recorded | VERIFIED-DESIGN |
+
+### Roadmap control
+Project Roadmap, Contract v2.1 and protected boundaries are unchanged.
