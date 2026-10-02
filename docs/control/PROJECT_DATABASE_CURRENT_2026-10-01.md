@@ -97,3 +97,21 @@ A pass at one layer is not a pass at a later layer.
 
 ## Completion gate
 ALL REQUIRED EVIDENCE CLASSES → MATCH → VERIFY → RECORD → READ-BACK → CLOSE
+
+
+## Autonomous execution reconciliation — 2026-10-03
+
+### Independent CI error handled during project continuation
+- Observed historical GitHub Actions failure: Apple Style Guide run #328 (workflow run 36895047204), job 110479811911.
+- Root cause: `docs/research/OFFICIAL_SOURCE_SNAPSHOT.md` contained a lowercase standalone `ios`, which violated the repository Apple-style validator requiring `iOS`.
+- Correction committed on `feat/android-app-v1`: commit `684e49e57fbb858f3a5e79e7863dd734208f6012`.
+- Immediate read-back verified the corrected file has 0 standalone lowercase `ios` matches and 13 `iOS` matches.
+- Verification status: correction READ-BACK = PASS; fresh workflow result for the correction commit is not yet available through the current GitHub workflow-run query surface, so this is not promoted to CI PASS.
+
+### Current Android CI evidence
+- Branch HEAD at the time of reconciliation: `f096ae99eb5a6046dc0c557d163460f005046a1b`.
+- Android App workflow run #19 (run 36895047148) completed SUCCESS for that branch state.
+- CI success establishes build/package evidence only; Android runtime, OS acceptance, and version-specific API 31+ compatibility remain OPEN/UNVERIFIED.
+
+### Continuation state
+The project remains OPEN under the existing roadmap. The Android runtime/API 31+ evidence gate is not closed, and the corrected Apple-style documentation requires a fresh CI result before being recorded as CI-verified. No historical evidence was deleted or replaced.
