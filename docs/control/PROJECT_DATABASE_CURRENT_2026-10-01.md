@@ -129,3 +129,41 @@ ALL REQUIRED EVIDENCE CLASSES → MATCH → VERIFY → RECORD → READ-BACK → 
 
 ### Continuation state
 The project remains OPEN under the existing roadmap. The Android runtime/API 31+ evidence gate is not closed, and no evidence class is promoted to PASS without the corresponding verification layer. No historical evidence was deleted or replaced.
+
+
+## Official OpenAI Tool/App/Limit Evidence Reconciliation — 2026-10-03
+
+New official-source evidence record committed at:
+docs/research/OPENAI_CHATGPT_TOOL_LIMITS_EVIDENCE_2026-10-03.md
+
+Commit: 6ac3ebaf149f6ad8e3c3ce2823f126b5f32482ff
+
+### Verified source findings
+- ChatGPT tools can have separate usage limits; the Free-tier FAQ explicitly documents separate limits for file uploads, image generation, voice, data analysis and other tools.
+- ChatGPT supports app-specific usage limits; official documentation describes Settings > Usage > App limits and weekly app usage limits.
+- App permissions govern when ChatGPT can read connected-account information or take actions on the user's behalf.
+- Connected-app access does not override provider permissions or workspace restrictions.
+- MCP apps are supported through the documented Developer Mode/MCP app model.
+- App availability can depend on plan, admin settings, user permissions and data-source entitlements.
+- OpenAI states that available models and usage limits depend on plan/workspace settings and can change over time.
+
+### Central operating rule
+Iris must model limits as separate dimensions rather than one global ChatGPT limit:
+plan/model allowance | app limit | tool limit | provider/service limit | workspace/admin restriction | permission | runtime availability
+
+OpenAI documentation proves product-level behavior only. It does NOT prove that a specific connector/plugin is available or unlimited in the current workspace. Current runtime availability must be recorded from actual workspace/tool-registry observation as a separate evidence record.
+
+### Evidence Registry
+| ID | Node | Claim | Source | Source Type | Verification Date | Result | Status |
+|---|---|---|---|---|---|---|---|
+| OPENAI-CHATGPT-001 | Tool/Limit Model | ChatGPT tools have separate usage limits | https://help.openai.com/en/articles/9275245-chatgpt-free-tier-faq | Official OpenAI Help Center | 2026-10-03 | Separate tool limits documented | VERIFIED-SOURCE |
+| OPENAI-CHATGPT-002 | App Limits | App-specific usage limits are supported | https://help.openai.com/en/articles/20001542-using-your-chatgpt-plan-in-other-apps-and-sites | Official OpenAI Help Center | 2026-10-03 | App limits documented | VERIFIED-SOURCE |
+| OPENAI-CHATGPT-003 | App Permissions | App permissions govern connected-account reads/actions | https://help.openai.com/en/articles/20001495-managing-app-permissions-in-chatgpt | Official OpenAI Help Center | 2026-10-03 | Permission boundary documented | VERIFIED-SOURCE |
+| OPENAI-CHATGPT-004 | Connected Apps | Connected apps remain subject to existing access/permission boundaries | https://help.openai.com/en/articles/11487775-connected-apps-in-chatgpt | Official OpenAI Help Center | 2026-10-03 | Access boundary documented | VERIFIED-SOURCE |
+| OPENAI-CHATGPT-005 | MCP Apps | MCP-powered apps can take actions subject to the documented permission model | https://help.openai.com/en/articles/12584461-developer-mode-and-mcp-apps-in-chatgpt | Official OpenAI Help Center | 2026-10-03 | MCP capability documented | VERIFIED-SOURCE |
+| OPENAI-CHATGPT-006 | Availability | App availability depends on plan/admin/user/data-source conditions | https://help.openai.com/en/articles/20001063-chatgpt-for-excel-and-google-sheets | Official OpenAI Help Center | 2026-10-03 | Availability dependencies documented | VERIFIED-SOURCE |
+| OPENAI-CHATGPT-007 | Workspace Controls | Workspace/admin controls can govern app/plugin access | https://help.openai.com/en/articles/11509118-admin-controls-security-and-compliance-for-plugins-and-apps | Official OpenAI Help Center | 2026-10-03 | Administrative boundary documented | VERIFIED-SOURCE |
+| OPENAI-CHATGPT-008 | Limit Variability | Model/usage limits depend on plan/workspace settings and may change | https://help.openai.com/en/collections/3742473-chatgpt | Official OpenAI Help Center | 2026-10-03 | Dynamic limit behavior documented | VERIFIED-SOURCE |
+
+### Reconciliation result
+Official OpenAI source evidence for the previously missing product-level limit/permission model has been added. Third-party connector quotas and current runtime availability remain separate OPEN/OBSERVED evidence classes and must not be inferred from OpenAI documentation.
