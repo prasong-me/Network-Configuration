@@ -510,3 +510,62 @@ A broad official-source search returned substantial Apple/IETF evidence. Subsequ
 
 ### Roadmap control
 Project Roadmap, Contract v2.1 and protected boundaries are unchanged.
+
+
+
+## Core Execution / Integration Closure — 2026-10-05
+
+### Node
+CORE MODEL + VALIDATION + INTEGRATION EXECUTION
+
+### Correction implemented
+The previously unverified execution/integration gap was corrected by promoting the verification changes into the main repository path.
+
+- Verification branch: `verify/round9-completion-20261005`
+- Verification head before merge: `2cc61524c3f341af1e9d9a95be116674b6dedd2c`
+- Pull Request: #3
+- Merge method: squash
+- Main merge commit: `0bec5d73c60839c96ef605c7c4ffa6b9adb7b696`
+
+### Implementation changes
+1. Added `workflow_dispatch` to `.github/workflows/core-model-tests.yml` so the complete gate has an explicit execution path.
+2. Added `tests/integration/core-pipeline.test.mjs`.
+3. Added integration coverage across:
+   State Engine → CompileResult → Contract Validation → Serializer → Artifact.
+4. Added fail-closed regression coverage:
+   PROCESSING → unhandled failure → BLOCKED.
+5. Added the integration regression test to the CI gate.
+
+### Direct execution evidence
+Verification workflow:
+- Run #34: `37249051836`
+- Head SHA: `a8fdac8139ef944fa202d3aec487159462a5d512`
+- Complete test gate: SUCCESS
+- Core Model backup runner: SUCCESS
+
+Final regression workflow after integration coverage was added:
+- Run #35: `37249095342`
+- Head SHA: `2cc61524c3f341af1e9d9a95be116674b6dedd2c`
+- Complete test gate: SUCCESS
+- Integration regression: SUCCESS
+- Core Model backup runner: SUCCESS
+- Overall conclusion: SUCCESS
+
+### Verification conclusion
+The previous gaps for this core test scope are now closed with current execution evidence:
+- Execute: VERIFIED
+- Output: VERIFIED through passing test gate and integration assertions
+- Integration: VERIFIED by dedicated integration regression
+- Failure/Recovery/Regression: VERIFIED for the covered fail-closed transition
+- CI reproducibility: VERIFIED by successful GitHub Actions execution
+
+### Central evidence rule
+The CI run and merge commit are the authoritative current evidence for this closure. Historical Android runtime evidence remains a separate node and is not promoted by this change.
+
+### Current state
+CORE EXECUTION = CLOSED
+CORE INTEGRATION = CLOSED
+FAILURE/REGRESSION COVERAGE = CLOSED for the implemented core scope
+ANDROID RUNTIME = remains separately OPEN/UNVERIFIED as previously recorded
+AUTOMATIC ERROR MEMORY = remains separately DEFERRED as instructed
+
