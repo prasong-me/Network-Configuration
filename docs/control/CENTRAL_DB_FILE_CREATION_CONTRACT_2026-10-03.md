@@ -1,7 +1,7 @@
 # Central Database — File Creation Contract / Expandable Domain Model
 
 Date: 2026-10-03
-Status: PROPOSAL — RECORDED FOR RECONCILIATION
+Status: IMPLEMENTED — DATABASE SCHEMA VERIFIED / WRITER INTEGRATION REMAINS OPEN
 
 ## Purpose
 
@@ -197,3 +197,43 @@ This record is intended to remain compatible with:
 - Central DB schema migration: NOT VERIFIED
 - Runtime Iris/Adapter integration: NOT VERIFIED
 
+
+
+## 2026-10-05 Database Implementation Reconciliation
+
+The Central Database design is now backed by the actual Supabase/Postgres project **IRIS-Continuity-Store**. The physical database uses the existing `iris_continuity` schema and preserves the original `records` continuity table.
+
+Implemented normalized entities:
+- projects
+- lifecycles
+- work_units
+- sub_lifecycles
+- transitions
+- sources
+- knowledge
+- evidence
+- failure_patterns
+- test_cases
+- verifications
+- regressions
+- dependencies
+- handoffs
+- decisions
+- audit_events
+
+The normalized model follows the existing fixed lifecycle pattern. Knowledge/Data completeness is a check inside the existing Entry/Check Gates; it does not add a new lifecycle stage or transition.
+
+Current implementation evidence:
+- Supabase project: `IRIS-Continuity-Store` / `jxpqkaevlqhddovpvjib`
+- Database: PostgreSQL 17.11
+- Migration applied: `create_iris_lifecycle_knowledge_model`
+- Current schema verification: tables and foreign-key relationships read back successfully.
+- Current work unit seeded: `WU-CONTRACT-VALIDATOR-COMPAT-20261005`.
+- Current Sub-Lifecycle: `SUB-CONTRACT-VALIDATOR-COMPAT-20261005`.
+- Current CI regression evidence: GitHub Actions run `37257042056`, head `e77881828d77d707a0d85a88f4333a488d880211`, terminal SUCCESS.
+- Handoff recorded in the database as `HANDOFF-CONTRACT-VALIDATOR-20261005-001`.
+
+Remaining open item:
+- Supabase Advisor reports RLS disabled on the `iris_continuity` tables. Because enabling RLS without an access-policy design can block legitimate access, this is recorded as a security decision requiring explicit policy selection before applying RLS. No unsafe auto-remediation was applied.
+
+The Central Database is therefore now an actual DB-backed system of records, while repository Markdown/JSON remain documentation/export/evidence artifacts rather than being treated as the database itself.
