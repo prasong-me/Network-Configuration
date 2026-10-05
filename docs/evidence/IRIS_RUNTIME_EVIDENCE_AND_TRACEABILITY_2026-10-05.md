@@ -411,4 +411,76 @@ Prevention:
 Do not encode emulator-dependent UI readiness as a fixed sleep. Use an observable readiness condition with a bounded timeout, then validate and persist evidence.
 
 
+## External Evidence Addendum — Android Runtime Harness
+
+### EXT-ANDROID-HARNESS-001
+Status: VERIFIED
+Fact: ReactiveCircus android-emulator-runner documents `script` as the custom script executed after the emulator is ready. Its upstream issue tracker documents a known multiline-script parsing limitation and gives the established workaround of placing complex logic in a script file and invoking that file as a single command.
+Sources:
+- ReactiveCircus/android-emulator-runner README: https://github.com/ReactiveCircus/android-emulator-runner
+- Issue #391 — Allow multiline scripts: https://github.com/ReactiveCircus/android-emulator-runner/issues/391
+Applies to: Android API 31 CI runtime gate.
+Test implication: control-flow constructs such as `for/if/done` must not depend on multiline parsing inside the action input; execute the runtime gate as one script-file command.
+
+### EXT-GITHUB-SHELL-001
+Status: VERIFIED
+Fact: GitHub Actions documents that `run` steps execute commands using the configured shell, and explicitly specifying `bash` runs the step through Bash. The runtime-gate script therefore needs to be invoked as an explicit Bash command when it relies on Bash script structure.
+Source: GitHub Docs — Workflow syntax / shell behavior: https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax
+Applies to: scripts/android-api31-runtime.sh invocation from the Android workflow.
+
+## Failure / Recovery Record — ANDROID-2026-10-05-004
+
+Status: CORRECTED_IN_TEST_HARNESS; RERUN_IN_PROGRESS
+
+Intended:
+The Android API 31 runtime gate must execute its readiness polling and validation logic as one valid shell program, then persist evidence even when an assertion fails.
+
+Actual:
+Run 37254854229, runtime job 111589891394, commit 2a407925408bdb278440050e1b34005a1959e15d, successfully built the APK, booted API 31, installed the APK, and launched MainActivity. The runtime action then failed before any application assertion at:
+`for i in $(seq 1 30); do`
+with:
+`/usr/bin/sh: 1: Syntax error: end of file unexpected (expecting "done")`
+Exit code: 2.
+The subsequent evidence upload failed because the evidence files had not yet been created.
+
+First failure boundary:
+CI TEST-HARNESS SCRIPT EXECUTION / MULTILINE SCRIPT PARSING
+
+Evidence:
+- Workflow run: 37254854229
+- Run number: 81
+- Runtime job: 111589891394
+- Commit: 2a407925408bdb278440050e1b34005a1959e15d
+- Runner: Ubuntu 24.04.5
+- Emulator: API 31; boot completed successfully
+- APK installation: PASS
+- MainActivity start: PASS
+- Failure command: multiline `for` construct inside `reactivecircus/android-emulator-runner@v2` `script: |`
+- Failure: shell parser reported missing `done`
+- Evidence artifact upload: FAIL because `api31-runtime-evidence.txt` and `ui.xml` were never created
+
+Root cause:
+The action's handling of the multiline `script` input does not preserve the compound shell program as one executable shell script for this control-flow construct. This is consistent with the upstream action's documented/recorded multiline-script limitation.
+
+Correction:
+PR #32 / branch `fix/android-runtime-gate-shell`:
+- moved the complete runtime gate to `scripts/android-api31-runtime.sh`;
+- changed the action input to the single command `bash scripts/android-api31-runtime.sh`;
+- added an EXIT trap that always attempts to persist runtime evidence before the emulator step exits;
+- retained bounded UI readiness polling and stable observable assertions.
+
+Correction head:
+`729f933b9d77ea52a318ba626864c69aa8a24721`
+
+Pre-run verification:
+- `bash -n scripts/android-api31-runtime.sh`: PASS
+- `sh -n scripts/android-api31-runtime.sh`: PASS
+- branch diff reviewed: only `.github/workflows/android.yml` and the new runtime script changed.
+
+Required verification:
+The PR-triggered Android workflow must pass `runtime-api31` and the `api31-runtime-evidence` artifact upload before this correction is promoted to main or Android runtime is marked verified.
+
+Prevention:
+Do not place multiline shell control structures directly in the android-emulator-runner `script` input. Keep runtime-gate logic in a versioned executable script and invoke it as one command.
+
 End of record.
