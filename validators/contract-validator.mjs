@@ -24,6 +24,13 @@ export const VALID_STATUSES = Object.freeze([
   'BLOCKED'
 ]);
 
+const VALID_DIAGNOSTIC_IMPACTS = Object.freeze([
+  'CRITICAL',
+  'HIGH',
+  'MEDIUM',
+  'LOW'
+]);
+
 const SOURCE = 'validators/contract-validator';
 
 function invalid(code, message, impact, recovery) {
@@ -43,6 +50,56 @@ function requireString(value, code, field, impact = 'HIGH') {
       `Provide a non-empty string for "${field}".`
     );
   }
+  return null;
+}
+
+function validateDiagnosticReport(report) {
+  if (!isObject(report)) {
+    return invalid(
+      'ERR_CONTRACT_INVALID_DIAGNOSTIC_REPORT',
+      'Each CompileResult diagnostic must be a DiagnosticReport object.',
+      'CRITICAL',
+      'Provide each diagnostic as an object with code, message, source, impact, and recovery.'
+    );
+  }
+
+  const requiredStringFields = [
+    ['code', 'ERR_CONTRACT_INVALID_DIAGNOSTIC_CODE'],
+    ['message', 'ERR_CONTRACT_INVALID_DIAGNOSTIC_MESSAGE'],
+    ['source', 'ERR_CONTRACT_INVALID_DIAGNOSTIC_SOURCE'],
+    ['recovery', 'ERR_CONTRACT_INVALID_DIAGNOSTIC_RECOVERY']
+  ];
+
+  for (const [field, code] of requiredStringFields) {
+    if (!Object.hasOwn(report, field)) {
+      return invalid(
+        'ERR_CONTRACT_INVALID_DIAGNOSTIC_REPORT',
+        `DiagnosticReport is missing required own property "${field}".`,
+        'CRITICAL',
+        `Provide "${field}" as a non-empty string.`
+      );
+    }
+
+    const diagnostic = requireString(report[field], code, field, 'CRITICAL');
+    if (diagnostic) {
+      return invalid(
+        'ERR_CONTRACT_INVALID_DIAGNOSTIC_REPORT',
+        `DiagnosticReport field "${field}" is invalid.`,
+        'CRITICAL',
+        `Provide "${field}" as a non-empty string.`
+      );
+    }
+  }
+
+  if (!Object.hasOwn(report, 'impact') || !VALID_DIAGNOSTIC_IMPACTS.includes(report.impact)) {
+    return invalid(
+      'ERR_CONTRACT_INVALID_DIAGNOSTIC_REPORT',
+      `DiagnosticReport impact "${report.impact}" is invalid.`,
+      'CRITICAL',
+      `Set impact to one of: ${VALID_DIAGNOSTIC_IMPACTS.join(', ')}`
+    );
+  }
+
   return null;
 }
 
@@ -144,13 +201,20 @@ export function validateCompileResult(result) {
     }
   }
 
-  if (Object.hasOwn(result, 'diagnostics') && !Array.isArray(result.diagnostics)) {
-    diagnostics.push(invalid(
-      'ERR_CONTRACT_INVALID_DIAGNOSTICS',
-      'Property "diagnostics" must be an array of DiagnosticReport objects.',
-      'CRITICAL',
-      'Provide diagnostics as an array.'
-    ));
+  if (Object.hasOwn(result, 'diagnostics')) {
+    if (!Array.isArray(result.diagnostics)) {
+      diagnostics.push(invalid(
+        'ERR_CONTRACT_INVALID_DIAGNOSTICS',
+        'Property "diagnostics" must be an array of DiagnosticReport objects.',
+        'CRITICAL',
+        'Provide diagnostics as an array.'
+      ));
+    } else {
+      for (const report of result.diagnostics) {
+        const diagnostic = validateDiagnosticReport(report);
+        if (diagnostic) diagnostics.push(diagnostic);
+      }
+    }
   }
 
   if (Object.hasOwn(result, 'metadata')) {
