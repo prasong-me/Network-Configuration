@@ -1,0 +1,16 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "type":"object",
+  "required":["error_id","work_id","tool","error_type","expected","actual","status"],
+  "properties":{
+    "error_id":{"type":"string"},"work_id":{"type":"string"},"tool":{"type":"string"},
+    "target":{"type":"string"},"timestamp":{"type":"string"},"version":{"type":"string"},
+    "state_before":{"type":"string"},"condition":{"type":"string"},"error_type":{"type":"string"},
+    "message_or_symptom":{"type":"string"},"expected":{"type":"string"},"actual":{"type":"string"},
+    "evidence":{"type":"array"},"root_cause":{"type":"string"},"impact":{"type":"string"},
+    "containment":{"type":"string"},"correction_or_recovery":{"type":"string"},
+    "verification":{"type":"string"},"retry_eligibility":{"type":"string"},"retry_count":{"type":"integer"},
+    "state_after":{"type":"string"},"resolution":{"type":"string"},"prevention_rule":{"type":"string"},
+    "status":{"type":"string"}
+  }
+}
