@@ -8,6 +8,7 @@ on:
       - 'core/registry/**'
       - 'validators/**'
       - 'tests/unit/**'
+      - 'tests/integration/**'
       - 'scripts/test/**'
       - 'package.json'
       - '.github/workflows/core-model-tests.yml'
@@ -17,6 +18,7 @@ on:
       - 'core/registry/**'
       - 'validators/**'
       - 'tests/unit/**'
+      - 'tests/integration/**'
       - 'scripts/test/**'
       - 'package.json'
       - '.github/workflows/core-model-tests.yml'
@@ -33,5 +35,7 @@ jobs:
           node-version: 20
       - name: Run complete test gate
         run: npm test
+      - name: Run integration regression
+        run: node --test tests/integration/core-pipeline.test.mjs
       - name: Run Core Model backup runner
         run: node scripts/test/run-core-model.mjs
