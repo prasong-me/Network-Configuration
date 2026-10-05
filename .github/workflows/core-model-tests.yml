@@ -1,6 +1,7 @@
 name: Core Model and Validation Tests
 
 on:
+  workflow_dispatch:
   push:
     paths:
       - 'core/model/**'
