@@ -251,7 +251,113 @@ MAIN
 
 The execution context must never be discarded when moving between these levels.
 
-## 13. Non-Goals
+## 14. Knowledge Acquisition Gate
+
+The Sub-Lifecycle must not enter IMPLEMENTATION when a material technical knowledge gap can change the implementation, test, evidence, security, compatibility, or runtime decision.
+
+Before implementation, resolve the knowledge set for the selected work unit:
+
+SOURCE/AUTHORITY
+-> FACT
+-> APPLICABILITY
+-> VERSION/DATE
+-> DEPENDENCY
+-> IMPLEMENTATION IMPACT
+-> TEST REQUIREMENT
+-> EVIDENCE REQUIREMENT
+-> CONTRADICTION/UNKNOWN
+-> KNOWLEDGE STATUS
+
+The knowledge record must be linked to the Sub-Lifecycle and Work Unit. External research is performed only for missing decision-relevant knowledge; it is not repeated when an applicable verified record already exists.
+
+Knowledge states:
+- VERIFIED-SOURCE
+- VERIFIED-PROJECT
+- HISTORICAL
+- SUPERSEDED
+- OPEN
+- UNKNOWN
+- CONFLICTED
+
+OPEN/UNKNOWN/CONFLICTED knowledge that is material to the target blocks implementation of that dependent unit. Independent units may continue.
+
+## 15. Reusable Knowledge Record
+
+Every material research finding used by a Sub-Lifecycle must have a reusable record containing:
+
+KNOWLEDGE_ID
+DOMAIN
+TOPIC
+SOURCE_ID
+SOURCE/AUTHORITY
+SOURCE_TYPE
+FACT
+APPLICABILITY
+TARGET
+VERSION/DATE
+DEPENDENCY
+IMPLEMENTATION_IMPACT
+TEST_REQUIREMENT
+EVIDENCE_REQUIREMENT
+CONTRADICTION/UNKNOWN
+STATUS
+VERIFICATION_DATE
+RELATED_SUB_LIFECYCLE_ID
+RELATED_WORK_UNIT_ID
+RELATED_EVIDENCE_ID
+SUPERSEDES/SUPERSEDED_BY (when applicable)
+
+The record is knowledge, not a conclusion. It must not be promoted to VERIFIED merely because it was retrieved.
+
+## 16. Knowledge Reuse / Research Suppression Rule
+
+At Sub-Lifecycle entry, search the Central Project Database/evidence records for an applicable verified knowledge record before external research.
+
+If an applicable verified record exists:
+- reuse it;
+- verify current-state applicability when the fact is time/version sensitive;
+- do not perform duplicate external research merely to repeat the same fact.
+
+If no applicable record exists:
+- perform targeted authoritative research;
+- reconcile it against existing records;
+- persist the result before implementation;
+- continue into implementation only after the material knowledge gate is closed or explicitly classified as non-blocking.
+
+If new evidence contradicts stored knowledge:
+- preserve the old record as historical;
+- create/update the new evidence record;
+- mark the superseded relationship explicitly;
+- reopen dependent work if the contradiction changes the decision.
+
+## 17. Full Operational Chain
+
+The complete execution path is therefore:
+
+CENTRAL DATABASE / CURRENT STATE
+-> RESOLVE WORK UNIT
+-> RESOLVE EXISTING SUB-LIFECYCLE
+-> KNOWLEDGE GATE
+-> ENTRY GATE
+-> EXECUTE
+-> DETECT
+-> VERIFY
+-> FAILURE PATTERN (if applicable)
+-> ANALYZE
+-> CORRECT / RECOVER
+-> VERIFY CORRECTION
+-> REGRESSION
+-> UPDATE TEST / EVIDENCE
+-> EXIT GATE
+-> HANDOFF
+-> UPDATE CENTRAL DATABASE
+-> MAIN LIFECYCLE
+
+The external web/research layer is a **gap-filling input to the Knowledge Gate**, not the normal working memory of the project.
+
+Once a material fact has been verified and persisted in the Central Database/evidence system, subsequent Sub-Lifecycles must use that stored record as their first knowledge source and only go outside again when the stored record is absent, stale, contradicted, or explicitly requires current external verification.
+
+## 18. Non-Goals
 
 This contract does not:
 - redefine Governance;
@@ -260,4 +366,4 @@ This contract does not:
 - convert unknowns into supported behavior;
 - declare project completion.
 
-It only makes the already-required lifecycle execution and failure/recovery chain operational and reconstructable.
+It only makes the already-required lifecycle execution, knowledge acquisition/reuse, failure/recovery chain, and evidence continuity operational and reconstructable.
