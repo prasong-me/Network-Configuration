@@ -140,6 +140,47 @@ test('fully compliant CompileResult is accepted', () => {
   assert.equal(validation.diagnostics.length, 0);
 });
 
+test('CompileResult rejects malformed nested DiagnosticReport fields', () => {
+  const result = {
+    status: 'SUCCESS',
+    representation: {},
+    diagnostics: [{
+      code: '',
+      message: 'message',
+      source: 'source',
+      impact: 'HIGH',
+      recovery: 'recover'
+    }],
+    metadata: validMetadata
+  };
+
+  const validation = validateCompileResult(result);
+  assert.equal(validation.valid, false);
+  assert.equal(
+    validation.diagnostics.some(d => d.code === 'ERR_CONTRACT_INVALID_DIAGNOSTIC_REPORT'),
+    true
+  );
+});
+
+test('CompileResult accepts a fully compliant nested DiagnosticReport', () => {
+  const result = {
+    status: 'SUCCESS',
+    representation: {},
+    diagnostics: [{
+      code: 'TEST_ERR',
+      message: 'message',
+      source: 'source',
+      impact: 'HIGH',
+      recovery: 'recover'
+    }],
+    metadata: validMetadata
+  };
+
+  const validation = validateCompileResult(result);
+  assert.equal(validation.valid, true);
+  assert.equal(validation.diagnostics.length, 0);
+});
+
 test('CompileResult rejects wrong contract version', () => {
   const result = {
     status: 'SUCCESS',
