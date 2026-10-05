@@ -47,6 +47,14 @@ URL: https://developer.android.com/privacy-and-security/risks/insecure-webview-n
 Applies to: WebView boundary/security.
 Test implication: verify allowed origin/content boundary, HTTPS loading, and native bridge exposure.
 
+### EXT-ANDROID-004
+Status: VERIFIED
+Fact: Android's WebViewAssetLoader maps registered URL path handlers to Android asset paths. The official example maps `/assets/` to the app's asset directory and loads `https://appassets.androidplatform.net/assets/index.html`; therefore a packaged HTML entry located under `assets/web/index.html` must be addressed as `https://appassets.androidplatform.net/assets/web/index.html`.
+Source: Android Developers — Load in-app content
+URL: https://developer.android.com/develop/ui/views/layout/webapps/load-local-content
+Applies to: Android WebView packaged Web App asset routing.
+Test implication: CI package destination and MainActivity asset URL must be treated as one invariant and runtime must verify the actual packaged page is loaded.
+
 ### EXT-APPLE-001
 Status: VERIFIED
 Fact: Apple documents GlobalHTTPProxy as a dedicated global HTTP proxy payload with explicit manual/automatic fields and states that only one such payload can be present on a device.
