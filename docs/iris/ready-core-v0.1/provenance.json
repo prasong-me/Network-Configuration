@@ -1,0 +1,9 @@
+{
+  "capability_id":"iris-core-work-control",
+  "payload":{"scope":"work identity, event history, provenance, scoped writes, checkpoints, user-burden control"},
+  "provenance":{
+    "evidence":"IRIS_WORKING_DATABASE.txt; IRIS_PROJECT_RECOVERY_DATABASE_2026-10-05.md; IRIS_EXTERNAL_RECOVERY_CHECKPOINT_2026-10-05-01.md",
+    "rule":"READ first; one work unit; evidence-first; UNKNOWN/BLOCKED; read-back and verification; automatic error recording",
+    "validation_status":"IMPLEMENTED_NOT_RUNTIME_VERIFIED"
+  }
+}
