@@ -569,3 +569,12 @@ FAILURE/REGRESSION COVERAGE = CLOSED for the implemented core scope
 ANDROID RUNTIME = remains separately OPEN/UNVERIFIED as previously recorded
 AUTOMATIC ERROR MEMORY = remains separately DEFERRED as instructed
 
+
+
+### Final main-branch verification — 2026-10-05
+- Main branch head after promotion: `0bec5d73c60839c96ef605c7c4ffa6b9adb7b696`.
+- Main-branch GitHub Actions Core Model and Validation Tests run #37: `37249177244`.
+- Run head SHA: `0bec5d73c60839c96ef605c7c4ffa6b9adb7b696`.
+- Overall conclusion: SUCCESS.
+- This is the final current-main execution evidence for the promoted core integration gate.
+- Central record read-back after update: MATCHED.
