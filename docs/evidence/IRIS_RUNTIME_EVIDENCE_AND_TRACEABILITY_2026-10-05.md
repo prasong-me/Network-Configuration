@@ -71,6 +71,15 @@ URL: https://developer.apple.com/documentation/devicemanagement/vpn/dns-data.dic
 Applies to: Apple VPN/DNS mapping.
 Test implication: required fields, platform availability, and protocol values must be validated against generated artifacts.
 
+
+### EXT-APPLE-004
+Status: VERIFIED
+Fact: Apple WebClip requires Label and URL; Apple also documents icon/display-name requirements for valid iOS web clip payloads and defines the com.apple.webClip.managed payload type.
+Source: Apple Developer Documentation — WebClip
+URL: https://developer.apple.com/documentation/DeviceManagement/WebClip
+Applies to: Apple Web App/WebClip exporter and validation.
+Test implication: validate required Label/URL fields plus iOS display/icon requirements when the project emits a WebClip.
+
 ### EXT-GITHUB-001
 Status: VERIFIED
 Fact: GitHub states that a workflow run is associated with an event commit SHA and that the workflow definition used is the one present at that commit/ref; GITHUB_SHA identifies the commit.
