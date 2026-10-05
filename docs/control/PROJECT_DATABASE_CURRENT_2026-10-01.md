@@ -668,3 +668,35 @@ The previously missing connection was the explicit Knowledge Gate + reusable kno
 - Lifecycle contract commit: 65a0e90efa1a178eb55c86cafdf912d912cd6549.
 - Lifecycle contract read-back: docs/architecture/IRIS_SUB_LIFECYCLE_EXECUTION_CONTRACT.md matched the written knowledge-gate/reuse sections.
 - Governance, Contract v2.1 and protected boundaries: unchanged.
+
+## Actual Central Database Backend — 2026-10-05
+
+The logical Project Database/Central Database is now backed by the actual PostgreSQL database in Supabase:
+- Project: IRIS-Continuity-Store
+- Project ref: jxpqkaevlqhddovpvjib
+- Schema: iris_continuity
+- PostgreSQL: 17.11
+- Existing continuity table: iris_continuity.records (historical continuity record preserved)
+- Normalized lifecycle/knowledge model: implemented by migration create_iris_lifecycle_knowledge_model
+- Project coverage entities: implemented by migration add_project_coverage_entities
+
+The DB is the system of record for structured project state. Repository Markdown/JSON files remain source/evidence/documentation artifacts and exports; they are not treated as the DB itself.
+
+### Current structured coverage
+
+First-class records now exist for:
+Project → Lifecycle → Work Unit → Sub-Lifecycle → Transition
+Source → Knowledge → Evidence
+Failure Pattern → Test Case → Verification → Regression
+Dependency → Handoff → Decision → Audit Event
+Project Node → Requirement → Contract → Capability → Artifact → Execution Run
+
+### Current active audit
+- Work Unit: WU-PROJECT-DATA-COVERAGE-AUDIT-20261005
+- Sub-Lifecycle: SUB-PROJECT-DATA-COVERAGE-20261005
+- State: RUNNING
+- Scope: identify material project data classes not yet represented/linked in the DB.
+- Fixed lifecycle pattern: unchanged.
+
+### Security boundary
+Supabase Advisor currently reports RLS disabled on the iris_continuity tables. This is an OPEN security decision because applying RLS without a correct access-policy model could block legitimate database operations. No automatic RLS policy was applied.
