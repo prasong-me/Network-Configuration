@@ -47,5 +47,95 @@
       "host": "Android WebView"
     },
     "runtime_state": "Android 12 device/emulator not verified"
+  },
+  "lifecycle": {
+    "main_to_sub_sequence": [
+      "CURRENT_CENTRAL_DATA",
+      "WORK_UNIT",
+      "EXISTING_SUB_LIFECYCLE",
+      "KNOWLEDGE_GATE",
+      "ENTRY",
+      "EXECUTE",
+      "DETECT",
+      "VERIFY",
+      "FAILURE_PATTERN",
+      "ANALYZE",
+      "CORRECT_RECOVER",
+      "VERIFY_CORRECTION",
+      "REGRESSION",
+      "EVIDENCE",
+      "EXIT",
+      "HANDOFF",
+      "CENTRAL_DATABASE"
+    ],
+    "states": [
+      "PENDING",
+      "RUNNING",
+      "BLOCKED",
+      "RECOVERING",
+      "VERIFYING",
+      "COMPLETED",
+      "FAILED"
+    ],
+    "knowledge_gate": {
+      "required": [
+        "KNOWLEDGE_ID",
+        "DOMAIN",
+        "TOPIC",
+        "SOURCE_ID",
+        "SOURCE",
+        "AUTHORITY",
+        "SOURCE_TYPE",
+        "FACT",
+        "APPLICABILITY",
+        "TARGET",
+        "VERSION_DATE",
+        "DEPENDENCY",
+        "IMPLEMENTATION_IMPACT",
+        "TEST_REQUIREMENT",
+        "EVIDENCE_REQUIREMENT",
+        "CONTRADICTION_UNKNOWN",
+        "STATUS",
+        "VERIFICATION_DATE",
+        "RELATED_SUB_LIFECYCLE_ID",
+        "RELATED_WORK_UNIT_ID",
+        "RELATED_EVIDENCE_ID"
+      ],
+      "statuses": [
+        "VERIFIED-SOURCE",
+        "VERIFIED-PROJECT",
+        "HISTORICAL",
+        "SUPERSEDED",
+        "OPEN",
+        "UNKNOWN",
+        "CONFLICTED"
+      ],
+      "rule": "Search stored applicable knowledge first. External research is gap-filling only; persist and reconcile material findings before implementation."
+    },
+    "failure_pattern_required": [
+      "FAILURE_ID",
+      "SUB_LIFECYCLE_ID",
+      "WORK_UNIT_ID",
+      "ROUND_ID",
+      "TRIGGER_CONTEXT",
+      "INTENDED",
+      "ACTUAL",
+      "FIRST_FAILURE_BOUNDARY",
+      "OBSERVED_SYMPTOM",
+      "EVIDENCE",
+      "CANDIDATE_CAUSES",
+      "ROOT_CAUSE",
+      "IMPACT",
+      "CORRECTION",
+      "RECOVERY",
+      "VERIFICATION",
+      "REGRESSION",
+      "PREVENTION",
+      "STATUS",
+      "NEXT_ACTION",
+      "HANDOFF"
+    ],
+    "reuse_rule": "Known verified current facts are reused from the Central Database/evidence records. Re-research only when absent, stale, contradicted, or explicitly time-sensitive.",
+    "continuity_rule": "Main Lifecycle sequencing context must be preserved through Sub-Lifecycle execution, failure/recovery, verification, exit and handoff."
   }
 }
