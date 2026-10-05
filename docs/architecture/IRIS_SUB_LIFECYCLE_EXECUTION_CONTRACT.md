@@ -251,9 +251,9 @@ MAIN
 
 The execution context must never be discarded when moving between these levels.
 
-## 14. Knowledge Acquisition Gate
+## 14. Knowledge/Data Gate (inside the existing fixed Entry/Check Gates)
 
-The Sub-Lifecycle must not enter IMPLEMENTATION when a material technical knowledge gap can change the implementation, test, evidence, security, compatibility, or runtime decision.
+The existing fixed Entry/Check Gates must verify that the selected work unit has the material knowledge/data required to execute. This is a gate/check inside the existing lifecycle pattern, not a new lifecycle state, transition, or stage.
 
 Before implementation, resolve the knowledge set for the selected work unit:
 
@@ -337,8 +337,7 @@ The complete execution path is therefore:
 CENTRAL DATABASE / CURRENT STATE
 -> RESOLVE WORK UNIT
 -> RESOLVE EXISTING SUB-LIFECYCLE
--> KNOWLEDGE GATE
--> ENTRY GATE
+-> ENTRY / CHECK GATES (including knowledge/data completeness)
 -> EXECUTE
 -> DETECT
 -> VERIFY
@@ -353,7 +352,7 @@ CENTRAL DATABASE / CURRENT STATE
 -> UPDATE CENTRAL DATABASE
 -> MAIN LIFECYCLE
 
-The external web/research layer is a **gap-filling input to the Knowledge Gate**, not the normal working memory of the project.
+The external web/research layer is a **gap-filling input to the existing Entry/Check Gates**, not the normal working memory of the project.
 
 Once a material fact has been verified and persisted in the Central Database/evidence system, subsequent Sub-Lifecycles must use that stored record as their first knowledge source and only go outside again when the stored record is absent, stale, contradicted, or explicitly requires current external verification.
 
