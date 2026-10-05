@@ -372,4 +372,43 @@ Prevention:
 Evidence assertions must test stable observable invariants, not implementation-detail telemetry that is not guaranteed for every valid execution path.
 
 
+## Failure / Recovery Record — ANDROID-2026-10-05-003
+
+Status: CORRECTED_IN_RUNTIME_GATE; RERUN_REQUIRED
+
+Intended:
+API 31 emulator runtime gate should wait for the Web App to become observable before validating UI content, and should preserve diagnostic evidence even when a validation assertion fails.
+
+Actual:
+Run 37254570999 successfully built and installed the APK and started MainActivity, but the fixed 5-second delay was insufficient on this emulator. The WebView existed but the UI hierarchy did not yet contain "Configuration Platform". The assertion failed and the subsequent evidence artifact was missing because evidence collection occurred after the assertion.
+
+First failure boundary:
+RUNTIME READINESS TIMING / EVIDENCE COLLECTION ORDER
+
+Evidence:
+- Build: PASS
+- APK install: PASS
+- MainActivity start: PASS
+- WebView node: PASS
+- UI content at assertion time: not yet ready
+- Evidence upload: failed because api31-runtime-evidence.txt and ui.xml were never created
+- Emulator boot itself took approximately 39 seconds in this run
+
+Root cause:
+The runtime gate assumed a fixed 5-second post-launch delay and collected its evidence only after content assertions. Emulator boot/runtime scheduling can make a fixed delay insufficient.
+
+Correction:
+Commit 2a407925408bdb278440050e1b34005a1959e15d:
+1. Poll UI readiness for up to 30 seconds until "Configuration Platform" is observable.
+2. Capture activity/process/WebView/logcat evidence before the final assertions.
+3. Keep the artifact upload step unconditional.
+4. Fail the runtime gate only after evidence has been persisted when the readiness condition is not met.
+
+Regression requirement:
+Run the API 31 runtime gate on commit 2a407925408bdb278440050e1b34005a1959e15d and require both runtime PASS and artifact upload PASS.
+
+Prevention:
+Do not encode emulator-dependent UI readiness as a fixed sleep. Use an observable readiness condition with a bounded timeout, then validate and persist evidence.
+
+
 End of record.
