@@ -578,3 +578,29 @@ AUTOMATIC ERROR MEMORY = remains separately DEFERRED as instructed
 - Overall conclusion: SUCCESS.
 - This is the final current-main execution evidence for the promoted core integration gate.
 - Central record read-back after update: MATCHED.
+
+
+## IRIS Operational / Execution Error Recording — 2026-10-05
+
+### New operational error registry
+- Artifact: docs/control/IRIS_OPERATIONAL_ERROR_RECORDS_2026-10-05.md
+- Merge commit: d75bccc45836f0fcee2cc87c755f5d07ebf384af
+- Pull Request: #4
+- Purpose: record material execution/process/tool/implementation errors as individual events with expected, actual, evidence, root cause, impact, correction, verification, prevention candidate, state and status.
+- Governance boundary: error records remain evidence/history; they do not silently activate Governance or operational rules.
+
+### Initial recorded events
+- OPE-20261005-001: sequential patch-then-rerun process error — corrected at workflow/process level; prevention candidate PRC-OPS-001.
+- OPE-20261005-002: repository/ref selection error — corrected and read-back verified; prevention candidate PRC-OPS-002.
+- OPE-20261005-003: JSX string/regex representation error set — Web build verified on commit c530c1247ed1a83adc49b77cb975832474447b69; Android downstream verification remained open.
+- OPE-20261005-004: Firecrawl concurrency/rate-limit boundary — bounded concurrency established from observed results; prevention candidate PRC-TOOL-001.
+
+### Current operational rule
+Every material execution error discovered during IRIS work is recorded as an individual operational event. Prevention candidates are kept separate from active rules and require the existing admission/evidence/regression checks before activation.
+
+### Current state
+- Error recording mechanism: IMPLEMENTED / READ-BACK VERIFIED.
+- Recorded events: 4.
+- Closed events: 3.
+- Open event: OPE-20261005-003 pending downstream Android verification.
+- Project Roadmap, Contract v2.1 and protected boundaries: UNCHANGED.
