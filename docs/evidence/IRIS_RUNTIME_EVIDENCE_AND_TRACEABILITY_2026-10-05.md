@@ -323,4 +323,53 @@ Exit condition:
 A uniquely attributable official source identifying the intended "Clash Live" product and its configuration/capability surface must be found. Once found, create a new evidence record and run target-specific reconciliation; until then the blocker remains explicit rather than silently unresolved.
 
 
+## Failure / Recovery Record — ANDROID-2026-10-05-002
+
+Status: CORRECTED_IN_TEST_HARNESS; RERUN_REQUIRED
+
+Intended:
+The Android API 31 runtime gate should prove the packaged Web App loads and reaches the expected page state.
+
+Actual:
+On commit 4fc5f08052032a04a846ce7bd24ac98e3e6c0c04, the emulator successfully installed and launched the APK and the UI hierarchy contained "Configuration Platform". The runtime gate nevertheless failed at the assertion:
+`adb shell logcat -d -t 800 | grep -F "IRIS_WEBAPP_ASSET_SERVED"`
+with exit code 1.
+
+First failure boundary:
+TEST-EVIDENCE ASSERTION, not application page load.
+
+Evidence:
+- Run: 37254251084
+- Runtime job: 111588263125
+- API: 31
+- Observed WebView text: "Configuration Platform"
+- Observed error page markers: absent
+- APK install: successful
+- Failure command: IRIS_WEBAPP_ASSET_SERVED grep
+- Failure was therefore an evidence-collector false negative rather than proof of WebView failure.
+
+Root cause:
+The native WebView page loaded successfully, but the test treated the optional `shouldInterceptRequest` instrumentation log as mandatory proof that the main asset was intercepted. That log is not a reliable invariant for the main-document load path in this runtime.
+
+Correction:
+Removed the mandatory `IRIS_WEBAPP_ASSET_SERVED` grep from the Android runtime gate while retaining stronger observable gates:
+- API 31 identity
+- successful APK installation
+- activity/process presence
+- WebView presence
+- "Configuration Platform" visible in the UI hierarchy
+- absence of "Webpage not available"
+- absence of "ERR_INVALID_RESPONSE"
+- explicit `IRIS_WEBAPP_PAGE_FINISHED` for `/assets/web/index.html`
+- runtime evidence artifact upload
+
+Correction commit: 9c63ebcb617608292f6d6232198c8bd8848744be
+
+Regression requirement:
+Re-run Android API 31 on commit 9c63ebcb617608292f6d6232198c8bd8848744be and require the runtime job to pass.
+
+Prevention:
+Evidence assertions must test stable observable invariants, not implementation-detail telemetry that is not guaranteed for every valid execution path.
+
+
 End of record.
