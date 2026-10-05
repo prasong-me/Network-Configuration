@@ -191,3 +191,120 @@ Error record เป็นหลักฐานและบทเรียน ไ
 6. Unverified assumptions
 
 ห้ามใช้ข้อ 4–6 แทนข้อ 1–3 เมื่อมีหลักฐานปัจจุบันที่ตรวจสอบได้
+
+## 12. IRIS Specialized Problem-Solving Method
+
+เมื่อพบปัญหา IRIS จะไม่แก้แบบเดาสาเหตุหรือ patch ตามอาการเพียงจุดเดียว แต่ใช้วงจรเฉพาะทางนี้:
+
+### SP-01 — Freeze the Claim
+ระบุสิ่งที่กำลังพิสูจน์/แก้ให้เป็นข้ออ้างที่ตรวจสอบได้หนึ่งข้อ และห้ามขยาย scope ระหว่างการวิเคราะห์
+
+### SP-02 — Establish the Failure Boundary
+ระบุจุดแรกที่ผลจริงแตกต่างจากผลที่คาด:
+INPUT → STATE → TRANSITION → COMPONENT → OUTPUT → EVIDENCE
+
+ไม่ใช้จุดที่เห็นอาการสุดท้ายเป็น root cause โดยอัตโนมัติ
+
+### SP-03 — Build the Dependency Cone
+ไล่ dependency ทั้ง upstream/downstream และหา shared state, version, environment, authority, tool และ artifact ที่อาจมีผลต่อ failure
+
+### SP-04 — Split Independent Tracks
+แยกเป็นสายที่ทำงานพร้อมกันได้ เช่น:
+SOURCE / DEPENDENCY / EXTERNAL AUTHORITY / CI / RUNTIME / ARTIFACT / TRACEABILITY
+ใช้ parallel execution สำหรับสายที่ไม่มี shared-state dependency
+
+### SP-05 — Evidence Ladder
+สำหรับแต่ละสมมติฐานต้องเลื่อนหลักฐานจาก:
+OBSERVED → REPRODUCED → ISOLATED → EXPLAINED → CORRECTED → REPRODUCED-PASS → REGRESSION-PASS
+
+ห้ามข้ามระดับด้วยการอนุมาน
+
+### SP-06 — Root-Cause Discrimination
+ทุก candidate cause ต้องถูกจัดเป็น:
+CONFIRMED / REFUTED / PLAUSIBLE / UNKNOWN
+Plausible ห้ามถูกใช้เป็น confirmed root cause
+
+### SP-07 — Smallest Safe Correction
+แก้จุดที่เล็กที่สุดซึ่งสามารถกำจัด root cause ได้โดยไม่เปลี่ยน contract/governance/boundary ที่ไม่ได้อยู่ใน scope
+
+### SP-08 — Immediate Verification
+หลังแก้ต้องทดสอบ failure เดิมก่อน แล้วจึงตรวจ side effects และ regression
+
+### SP-09 — Cross-Layer Verification
+ตรวจอย่างน้อย:
+SOURCE → BUILD → ARTIFACT → EXECUTION → OUTPUT → EVIDENCE → TRACEABILITY
+เฉพาะ layer ที่ applicable แต่ห้ามถือ layer หนึ่งแทน layer ถัดไป
+
+### SP-10 — Reopen on Contradiction
+ถ้าหลักฐานใหม่ขัดกับสมมติฐานเดิม ให้ย้อนกลับไป SP-02 ไม่ patch ทับความขัดแย้ง
+
+### SP-11 — Persist the Learning
+ทุก root cause ที่ยืนยันแล้วต้องบันทึก:
+failure signature → root cause → correction → verification → prevention → affected scope → evidence references
+
+### SP-12 — Close Only With Bidirectional Proof
+ปิดงานเมื่อเดินได้ทั้ง:
+Requirement → Project Unit → Test → Evidence → Result
+และ
+Evidence → Test → Project Unit → Requirement
+
+หากมี orphan, unknown ที่มีผลต่อ claim, unverified dependency หรือ runtime gate ที่ยังไม่ผ่าน ให้คงงานเป็น OPEN/BLOCKED/PENDING ตามข้อเท็จจริง
+
+### Mandatory Failure Record
+
+ทุก failure สำคัญต้องมี:
+FAILURE_ID
+INTENDED
+ACTUAL
+FIRST_FAILURE_BOUNDARY
+REPRO
+EVIDENCE
+CANDIDATE_CAUSES
+CONFIRMED_ROOT_CAUSE
+CORRECTION
+VERIFICATION
+REGRESSION
+PREVENTION
+STATUS
+NEXT_ACTION
+
+### Specialized Decision Rule
+
+เมื่อข้อมูลไม่พอ:
+1. ห้ามเดา
+2. หา evidence เพิ่มจาก source/authority/repository/runtime/tool ที่เหมาะสม
+3. ถ้ายังขาดเพราะ external dependency ให้สร้าง explicit work item พร้อม owner/action/evidence gate
+4. ทำงานอื่นที่ไม่ขึ้นกับ blocker ต่อทันที
+5. เมื่อ dependency พร้อม ให้กลับมาปิด work item
+6. ห้ามปล่อย work item เป็นข้อความค้างแบบไม่มีสถานะหรือ next action
+
+### Anti-Stuck Rule
+
+งานทุกชิ้นที่เข้าสู่ OPEN/BLOCKED/PENDING ต้องมี:
+- เหตุผลที่แน่นอน
+- หลักฐานล่าสุด
+- dependency ที่ชัดเจน
+- วิธีแก้/วิธีพิสูจน์
+- next executable action
+- exit condition
+
+ดังนั้น “ข้อมูลไม่พอ” ไม่ใช่ terminal state แต่เป็น trigger ให้เข้าสู่ evidence acquisition หรือ explicit external dependency workflow
+
+## 13. Mission Completion Gate
+
+ก่อนประกาศ project/main mission เสร็จ ต้องตรวจ:
+[ ] Scope inventory complete
+[ ] Current state reconciled
+[ ] All applicable implementation units checked
+[ ] All applicable dependencies resolved or explicitly external-blocked
+[ ] All required tests executed
+[ ] Failure/recovery paths checked
+[ ] Regression executed
+[ ] Evidence stored and read-back verified
+[ ] Forward traceability complete
+[ ] Reverse traceability complete
+[ ] No orphan requirement/test/evidence
+[ ] Final status derived from current evidence only
+
+หากข้อใดไม่ผ่าน IRIS ต้องทำงานต่อหรือระบุ external blocker ที่พิสูจน์ได้ ไม่ประกาศ COMPLETED
+
