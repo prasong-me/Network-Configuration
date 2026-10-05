@@ -604,3 +604,67 @@ Every material execution error discovered during IRIS work is recorded as an ind
 - Closed events: 3.
 - Open event: OPE-20261005-003 pending downstream Android verification.
 - Project Roadmap, Contract v2.1 and protected boundaries: UNCHANGED.
+
+
+## IRIS Lifecycle Knowledge Gate / Reusable Project Knowledge — 2026-10-05
+
+### Purpose
+This section operationalizes the existing rule that external research must become reusable Project Knowledge before it is used for implementation. It is part of the single logical Central/Project Database; it is not a parallel database.
+
+### Canonical lifecycle knowledge chain
+
+CURRENT CENTRAL DATA → WORK UNIT → EXISTING SUB-LIFECYCLE → KNOWLEDGE GATE → SOURCE/AUTHORITY → FACT → APPLICABILITY → VERSION/DATE → DEPENDENCY → IMPLEMENTATION IMPACT → TEST REQUIREMENT → EVIDENCE REQUIREMENT → CONTRADICTION/UNKNOWN → KNOWLEDGE STATUS → IMPLEMENTATION → VERIFICATION → REGRESSION → EVIDENCE → HANDOFF → CENTRAL DATABASE
+
+### Required reusable knowledge dimensions
+Every material external or project-derived fact used by a Sub-Lifecycle must be addressable by:
+- KNOWLEDGE_ID
+- DOMAIN / TOPIC
+- SOURCE_ID / SOURCE / AUTHORITY
+- SOURCE_TYPE
+- FACT
+- APPLICABILITY
+- TARGET
+- VERSION / DATE
+- DEPENDENCY
+- IMPLEMENTATION_IMPACT
+- TEST_REQUIREMENT
+- EVIDENCE_REQUIREMENT
+- CONTRADICTION / UNKNOWN
+- STATUS
+- VERIFICATION_DATE
+- RELATED_SUB_LIFECYCLE_ID
+- RELATED_WORK_UNIT_ID
+- RELATED_EVIDENCE_ID
+- SUPERSEDES / SUPERSEDED_BY when applicable
+
+### Research reuse rule
+1. Resolve the existing knowledge record before external research.
+2. Reuse an applicable verified record when it is current and sufficient.
+3. Perform targeted authoritative research only for missing, stale, contradicted, or explicitly time-sensitive facts.
+4. Reconcile new findings with existing records.
+5. Preserve historical records; mark supersession rather than deleting them.
+6. Persist the new finding before it becomes an implementation basis.
+7. Do not claim a retrieved fact is VERIFIED until its source, applicability and evidence state are established.
+
+### Lifecycle continuity
+A Sub-Lifecycle is explicitly responsible for carrying the knowledge context into execution. The context must not be dropped when moving from Main Lifecycle planning/checking into implementation or verification.
+
+MAIN → SELECT WORK UNIT → RESOLVE SUB-LIFECYCLE → KNOWLEDGE GATE → ENTRY → EXECUTION → FAILURE PATTERN / RECOVERY → VERIFICATION → REGRESSION → EXIT → HANDOFF → CENTRAL DATABASE
+
+### Current coverage assessment
+The repository already contains the major ingredients for this model: central project database; external-source/evidence records; provenance/evidence registry concepts; mandatory work roadmap; operational error registry; Sub-Lifecycle execution contract; and current-state reconciliation rules.
+
+The previously missing connection was the explicit Knowledge Gate + reusable knowledge linkage inside the Sub-Lifecycle. This is now recorded in docs/architecture/IRIS_SUB_LIFECYCLE_EXECUTION_CONTRACT.md and linked conceptually to the Central Database rather than maintained as a separate database.
+
+### Current implementation state
+- Lifecycle knowledge gate specification: IMPLEMENTED / READ-BACK VERIFIED.
+- Central Database integration model: RECORDED / READ-BACK VERIFIED.
+- Existing external evidence remains reusable and historical evidence remains preserved.
+- New external research is no longer the default starting point for a known topic; the Central Database/evidence records are the first lookup layer.
+- Current-state/time-sensitive facts still require revalidation when their validity can change.
+- Missing or contradicted knowledge remains OPEN/UNKNOWN/CONFLICTED and blocks only dependent work.
+
+### Evidence / change record
+- Lifecycle contract commit: 65a0e90efa1a178eb55c86cafdf912d912cd6549.
+- Lifecycle contract read-back: docs/architecture/IRIS_SUB_LIFECYCLE_EXECUTION_CONTRACT.md matched the written knowledge-gate/reuse sections.
+- Governance, Contract v2.1 and protected boundaries: unchanged.
