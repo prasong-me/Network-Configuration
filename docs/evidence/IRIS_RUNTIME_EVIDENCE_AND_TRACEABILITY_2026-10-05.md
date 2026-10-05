@@ -233,4 +233,63 @@ Orphan evidence and orphan requirements are defects in the traceability layer.
 7. Run production/device acceptance.
 8. Record final acceptance with exact execution identity.
 
+## Failure / Recovery Record — ANDROID-2026-10-05-001
+
+Status: RECOVERED_IN_SOURCE; RERUN_REQUIRED
+
+Intended:
+Android API 31 emulator should install the generated APK and load the packaged real Web App inside the native WebView.
+
+Actual:
+APK build, installation, activity start, WebView creation, and evidence artifact upload succeeded, but the WebView displayed "Webpage not available" with `net::ERR_INVALID_RESPONSE`.
+
+First failure boundary:
+PACKAGED WEB ASSET URL
+
+Evidence:
+- Run: 37253426793
+- Commit: 0ec8c687d136726c22f0fc9d063760c3194a9bc7
+- Android API: 31
+- WebView: com.google.android.webview 91.0.4472.114
+- Observed URL: https://appassets.androidplatform.net/assets/index.html
+- Observed error: net::ERR_INVALID_RESPONSE
+- Runtime evidence artifact: api31-runtime-evidence, artifact ID 11322325079
+- Log failure point: grep for IRIS_WEBAPP_ASSET_SERVED returned exit code 1 after WebView error page was captured.
+
+Root cause:
+The CI package step copies the built web bundle to `apps/android/app/src/main/assets/web/`, while MainActivity loaded `https://appassets.androidplatform.net/assets/index.html`. The loader therefore addressed the wrong asset path.
+
+Correction:
+MainActivity was changed to load `https://appassets.androidplatform.net/assets/web/index.html`.
+Commit: 2142a318c2e492716befebe9c49a4cf28e97992e
+
+Verification hardening:
+The Android workflow was changed to require:
+- WebView node presence;
+- visible "Configuration Platform" content;
+- absence of "Webpage not available";
+- absence of "ERR_INVALID_RESPONSE";
+- asset-served evidence;
+- page-finished evidence for the corrected `/assets/web/index.html` URL.
+Commit: 283c4241b76dea8f97831f22984a82bd0f5d654f
+
+Required next verification:
+Run the Android API 31 build/runtime workflow on commit 283c4241b76dea8f97831f22984a82bd0f5d654f and require runtime-api31 to pass before treating Android WebView runtime as verified.
+
+Prevention:
+Treat packaging destination and runtime asset URL as one explicit invariant:
+CI_ASSET_DESTINATION == WEBVIEW_ASSET_URL_PATH.
+Any mismatch is a build/runtime integration defect and must fail the runtime gate.
+
+## Current Runtime Gate Snapshot
+
+At the time of this record, commit 0ec8c687d136726c22f0fc9d063760c3194a9bc7 had:
+- CI: PASS
+- Verify Configuration Platform: PASS
+- Apple Style Guide & Grammar Checker: PASS
+- Android build/package: PASS
+- Android API 31 runtime: FAIL due to the recovered asset-path defect above
+
+The correction commits are newer than that failed run; therefore the failed run remains historical evidence and is not reused as current PASS.
+
 End of record.
