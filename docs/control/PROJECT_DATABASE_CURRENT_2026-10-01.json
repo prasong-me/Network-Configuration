@@ -137,5 +137,50 @@
     ],
     "reuse_rule": "Known verified current facts are reused from the Central Database/evidence records. Re-research only when absent, stale, contradicted, or explicitly time-sensitive.",
     "continuity_rule": "Main Lifecycle sequencing context must be preserved through Sub-Lifecycle execution, failure/recovery, verification, exit and handoff."
+  },
+  "database_backend": {
+    "provider": "Supabase",
+    "project_name": "IRIS-Continuity-Store",
+    "project_ref": "jxpqkaevlqhddovpvjib",
+    "postgres_version": "17.11",
+    "schema": "iris_continuity",
+    "status": "IMPLEMENTED"
+  },
+  "structured_entities": [
+    "projects",
+    "lifecycles",
+    "work_units",
+    "sub_lifecycles",
+    "transitions",
+    "sources",
+    "knowledge",
+    "evidence",
+    "failure_patterns",
+    "test_cases",
+    "verifications",
+    "regressions",
+    "dependencies",
+    "handoffs",
+    "decisions",
+    "audit_events",
+    "project_nodes",
+    "requirements",
+    "contracts",
+    "capabilities",
+    "artifacts",
+    "execution_runs"
+  ],
+  "current_audit": {
+    "work_unit_id": "WU-PROJECT-DATA-COVERAGE-AUDIT-20261005",
+    "sub_lifecycle_id": "SUB-PROJECT-DATA-COVERAGE-20261005",
+    "status": "RUNNING",
+    "scope": "Identify material project data classes not yet represented or linked in the actual DB.",
+    "lifecycle_pattern_changed": false
+  },
+  "security_open_issue": {
+    "type": "RLS",
+    "schema": "iris_continuity",
+    "status": "OPEN",
+    "reason": "Advisor reports RLS disabled; policy design must be chosen before enabling to avoid blocking legitimate access."
   }
 }
