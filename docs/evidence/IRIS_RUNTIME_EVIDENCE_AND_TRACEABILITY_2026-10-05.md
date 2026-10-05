@@ -300,4 +300,27 @@ At the time of this record, commit 0ec8c687d136726c22f0fc9d063760c3194a9bc7 had:
 
 The correction commits are newer than that failed run; therefore the failed run remains historical evidence and is not reused as current PASS.
 
+## Research Closure — CLASH-LIVE-IDENTITY-2026-10-05
+
+Status: BLOCKED / IDENTITY NOT ESTABLISHED
+
+Objective:
+Resolve the project target named "Clash Live" using an attributable official source before freezing target capability.
+
+Search performed:
+- exact-name web search for "Clash Live" + proxy
+- exact-name search for VPN/proxy app
+- App Store exact-name search
+- GitHub exact-name search
+
+Result:
+No unique official network-proxy/VPN client identity was established. Search results were unrelated products or generic Clash/live-stream references. No evidence justifies substituting Clash Mi, Clash Lite, Mihomo, or another client.
+
+Decision:
+Keep the target as PENDING_IDENTITY_RESOLUTION / BLOCKED. Do not invent a target profile and do not promote any capability into the common model.
+
+Exit condition:
+A uniquely attributable official source identifying the intended "Clash Live" product and its configuration/capability surface must be found. Once found, create a new evidence record and run target-specific reconciliation; until then the blocker remains explicit rather than silently unresolved.
+
+
 End of record.
